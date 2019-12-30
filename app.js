@@ -1,6 +1,9 @@
+require("dotenv/config")
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 const {getAllUsers,
@@ -21,12 +24,18 @@ const {createNotification,
        getUserNotifications,
        GetActivityLog,
        DeleteUserNotifications} = require('./controllers/notification');          
-const {authenticateUser,verifyToken} = require('./controllers/auth');      
+const {authenticateUser,verifyToken} = require('./controllers/auth'); 
+const connectDb = require('./utils/connectDb');     
 var db =  'mongodb+srv://shubhamchepe:132133@Shubham@cluster0-3zzun.mongodb.net/test?retryWrites=true&w=majority';
-
-
-mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true,useUnifiedTopology: true });
-console.log('DB Connected!'); 
+connectDb();
+// cors origin URL - Allow inbound traffic from origin
+corsOptions = {
+       origin: "https://stark-reaches-33845.herokuapp.com",
+       optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+     };
+     app.use(cors(corsOptions));
+// mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true,useUnifiedTopology: true });
+// console.log('DB Connected!'); 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended:true

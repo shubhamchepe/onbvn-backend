@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import config from '../config';
+const mongoose = require('mongoose');
+const config  = require('../config');
 const connection = {}
 
 async function connectDb(){
@@ -7,7 +7,7 @@ async function connectDb(){
         console.log('Using Existing Connection')
         return;
     }
-    const db = await mongoose.connect(config.env.MONGO_SRV, {
+    const db = await mongoose.connect(config.mongoURL, {
         useNewUrlParser: true, 
         useFindAndModify: false, 
         useCreateIndex: true,
@@ -16,5 +16,4 @@ async function connectDb(){
     console.log('DB Connected!')
     connection.isConnected = db.connections[0].readyState;
 }
-
-export default connectDb;
+module.exports = connectDb;
