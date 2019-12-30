@@ -30,7 +30,7 @@ var db =  'mongodb+srv://shubhamchepe:132133@Shubham@cluster0-3zzun.mongodb.net/
 connectDb();
 // cors origin URL - Allow inbound traffic from origin
 corsOptions = {
-       origin: "https://stark-reaches-33845.herokuapp.com",
+       origin: "https://onbvn-backend.herokuapp.com",
        optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
      };
      app.use(cors(corsOptions));
