@@ -22,9 +22,11 @@ const {createNotification,
        GetActivityLog,
        DeleteUserNotifications} = require('./controllers/notification');          
 const {authenticateUser,verifyToken} = require('./controllers/auth');      
-var db =  'mongodb://localhost:27017/onbvn';
+var db =  'mongodb+srv://shubhamchepe:132133@Shubham@cluster0-3zzun.mongodb.net/test?retryWrites=true&w=majority';
 
-mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }); 
+
+mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true,useUnifiedTopology: true });
+console.log('DB Connected!'); 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended:true
