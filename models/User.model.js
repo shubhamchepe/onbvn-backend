@@ -136,6 +136,14 @@ var UserSchema = new Schema({
           type: [],
           default:''
       },
+      aadharFrontImage:{
+         type: String,
+         default:''
+      },
+      aadharBackImage:{
+        type: String,
+        default:''
+     },
       Notifications:[{
           type:Schema.Types.ObjectId,
           ref:'Notification'
