@@ -13,6 +13,7 @@ const {getAllUsers,
        getUserByFirstname,
        UpdateFields,
        CheckIfFriends,
+       upload,
        AcceptFriendReq} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
@@ -71,7 +72,7 @@ app.get('/', (req, res) => res.send('Welcome to onbvn backend'));
 //Route To Get All Users
 app.get('/getAllUsers', getAllUsers);
 //Route To Create User
-app.post('/createUser', createUser);
+app.post('/createUser', upload.any(),createUser);
 //Route To Get User By Id
 app.get('/getUserById/:id', getUserById);
 //Route To Get User By Username

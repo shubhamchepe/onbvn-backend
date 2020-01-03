@@ -49,6 +49,8 @@ const s3 = new AWS.S3({
 //         console.log(`File uploaded successfully. ${data.Location}`);
 //     });
 // };
+var upload = multer()
+
 
 //Creating User
 const createUser = (req,res) => {
@@ -66,6 +68,7 @@ const createUser = (req,res) => {
 
     console.log("files " + JSON.stringify(req.files))
     console.log("file " +JSON.stringify(req.file))
+    console.log("Body "+ JSON.stringify(req.body))
 
     res.status(200).send({
         username: "Shailesh"
@@ -287,5 +290,6 @@ module.exports = {
     getUserByFirstname,
     UpdateFields,
     CheckIfFriends,
-    AcceptFriendReq
+    AcceptFriendReq,
+    upload
 };
