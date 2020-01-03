@@ -81,14 +81,14 @@ const createUser = (req,res) => {
     };
 
     // Uploading files to the bucket
-    s3.putObject(params, function(err, data) {
+    s3.upload(params, function(err, data) {
         if (err) {
             throw err;
         }
         
         newUser.aadharFrontImage = data.Location
 
-        s3.putObject(params1, function(err, data1) {
+        s3.upload(params1, function(err, data1) {
             if (err) {
                 throw err;
             }
