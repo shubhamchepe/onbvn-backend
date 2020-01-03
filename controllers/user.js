@@ -68,25 +68,27 @@ const createUser = (req,res) => {
         Bucket: BUCKET_NAME,
         Key: 'cat.jpg', // File name you want to save as in S3
         Body: req.body.aadharFrontImage,
-        ContentType: "image/jpg"
+        ContentType: "image/jpg",
+        ContentEncoding: 'base64'
     };
 
     const params1 = {
         Bucket: BUCKET_NAME,
         Key: 'cat1.jpg', // File name you want to save as in S3
         Body: req.body.aadharBackImage,
-        ContentType: "image/jpg"
+        ContentType: "image/jpg",
+        ContentEncoding: 'base64'
     };
 
     // Uploading files to the bucket
-    s3.upload(params, function(err, data) {
+    s3.putObject(params, function(err, data) {
         if (err) {
             throw err;
         }
         
         newUser.aadharFrontImage = data.Location
 
-        s3.upload(params1, function(err, data1) {
+        s3.putObject(params1, function(err, data1) {
             if (err) {
                 throw err;
             }
