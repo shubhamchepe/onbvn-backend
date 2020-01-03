@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const AWS = require('aws-sdk');
 const fs = require('fs');
-
+const multer = require("multer")
 // Enter copied or downloaded access ID and secret key here
 const ID = 'AKIAJLIIFPP4RSF4MICA';
 const SECRET = '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';
@@ -49,6 +49,12 @@ const s3 = new AWS.S3({
 //         console.log(`File uploaded successfully. ${data.Location}`);
 //     });
 // };
+var storage = multer.memoryStorage({
+    destination: function(req, file, callback) {
+        callback(null, '');
+    }
+});
+
 var upload = multer()
 
 
