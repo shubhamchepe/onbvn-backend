@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const AWS = require('aws-sdk');
 const fs = require('fs');
-const multer = require("multer")
+
 // Enter copied or downloaded access ID and secret key here
 const ID = 'AKIAJLIIFPP4RSF4MICA';
 const SECRET = '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';
@@ -50,15 +50,6 @@ const s3 = new AWS.S3({
 //     });
 // };
 
-var storage = multer.memoryStorage({
-    destination: function(req, file, callback) {
-        callback(null, '');
-    }
-});
-
-// var multipleUpload = multer({ storage: storage }).array('file');
-var upload = multer({ storage: storage }).single('aadharFrontImage');
-
 //Creating User
 const createUser = (req,res) => {
     var newUser = new User();
@@ -73,11 +64,12 @@ const createUser = (req,res) => {
     newUser.aadharFrontImage =   req.body.aadharFrontImage;
     newUser.aadharBackImage =   req.body.aadharBackImage;
 
-    console.log(req.file)
     const params = {
         Bucket: BUCKET_NAME,
-        Key: req.file.originalname,
-        Body: req.file.buffer
+        Key: 'cat.jpg', // File name you want to save as in S3
+        Body: req.body.aadharFrontImage,
+        ContentType: "image/jpg",
+        ContentEncoding: 'base64',
     };
 
     const params1 = {
@@ -89,14 +81,14 @@ const createUser = (req,res) => {
     };
 
     // Uploading files to the bucket
-    s3.upload(params, function(err, data) {
+    s3.putObject(params, function(err, data) {
         if (err) {
             throw err;
         }
         
         newUser.aadharFrontImage = data.Location
 
-        s3.upload(params1, function(err, data1) {
+        s3.putObject(params1, function(err, data1) {
             if (err) {
                 throw err;
             }
@@ -288,6 +280,5 @@ module.exports = {
     getUserByFirstname,
     UpdateFields,
     CheckIfFriends,
-    AcceptFriendReq,
-    upload
+    AcceptFriendReq
 };
