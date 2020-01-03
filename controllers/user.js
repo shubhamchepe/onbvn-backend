@@ -5,17 +5,17 @@ const config = require('../config');
 const AWS = require('aws-sdk');
 const fs = require('fs');
 
-// // Enter copied or downloaded access ID and secret key here
-// const ID = 'AKIAJLIIFPP4RSF4MICA';
-// const SECRET = '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';
+// Enter copied or downloaded access ID and secret key here
+const ID = 'AKIAJLIIFPP4RSF4MICA';
+const SECRET = '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';
 
-// // The name of the bucket that you have created
-// const BUCKET_NAME = 'test-bucket';
+// The name of the bucket that you have created
+const BUCKET_NAME = 'onbvn-bucket';
 
-// const s3 = new AWS.S3({
-//     accessKeyId: ID,
-//     secretAccessKey: SECRET
-// });
+const s3 = new AWS.S3({
+    accessKeyId: ID,
+    secretAccessKey: SECRET
+});
 
 // const params = {
 //     Bucket: BUCKET_NAME,
@@ -64,30 +64,51 @@ const createUser = (req,res) => {
     newUser.aadharFrontImage =   req.body.aadharFrontImage;
     newUser.aadharBackImage =   req.body.aadharBackImage;
 
-    // const params = {
-    //     Bucket: BUCKET_NAME,
-    //     Key: 'cat.jpeg', // File name you want to save as in S3
-    //     Body: fileContent,
-    //     ContentType: "image/jpeg"
-    // };
+    const params = {
+        Bucket: BUCKET_NAME,
+        Key: 'cat.jpg', // File name you want to save as in S3
+        Body: req.body.aadharFrontImage,
+        ContentType: "image/jpg"
+    };
 
-    // // Uploading files to the bucket
-    // s3.upload(params, function(err, data) {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     console.log(`File uploaded successfully. ${data.Location}`);
-    // });
+    const params1 = {
+        Bucket: BUCKET_NAME,
+        Key: 'cat1.jpg', // File name you want to save as in S3
+        Body: req.body.aadharBackImage,
+        ContentType: "image/jpg"
+    };
 
-    newUser.save((err,newUser)=>{
-       if(err){
-           console.log('error occured');
-           res.send('Could not create user')
-       } else{
-           console.log('User Created Successfully');
-           res.json(newUser);
-       }
-    })
+    // Uploading files to the bucket
+    s3.upload(params, function(err, data) {
+        if (err) {
+            throw err;
+        }
+        
+        newUser.aadharFrontImage = data.Location
+
+        s3.upload(params1, function(err, data1) {
+            if (err) {
+                throw err;
+            }
+            newUser.aadharBackImage = data1.Location
+            newUser.save((err,newUser)=>{
+                if(err){
+                    console.log('error occured');
+                    res.send('Could not create user')
+                } else{
+                    console.log('User Created Successfully');
+                    res.json(newUser);
+                }
+            })
+            console.log(`File uploaded successfully. ${data.Location}`);
+            console.log(`File uploaded successfully. ${data1.Location}`);
+        })
+         
+    });
+
+    
+    
+    
 };
 
 
