@@ -5,16 +5,11 @@ const config = require('../config');
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const multer = require("multer")
-// Enter copied or downloaded access ID and secret key here
-const ID = 'AKIAJLIIFPP4RSF4MICA';
-const SECRET = '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';
 
-// The name of the bucket that you have created
-const BUCKET_NAME = 'onbvn-bucket';
 
 const s3 = new AWS.S3({
-    accessKeyId: ID,
-    secretAccessKey: SECRET
+    accessKeyId: config.awsID,
+    secretAccessKey: config.awsSecret
 });
 
 // const params = {
