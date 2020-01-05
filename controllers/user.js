@@ -75,13 +75,13 @@ const createUser = (req,res) => {
 
 
     const params = {
-        Bucket: BUCKET_NAME,
+        Bucket: config.awsBucket,
         Key: req.files[0].originalname, // File name you want to save as in S3
         Body: req.files[0].buffer,
     };
 
     const params1 = {
-        Bucket: BUCKET_NAME,
+        Bucket: config.awsBucket,
         Key: req.files[1].originalname, // File name you want to save as in S3
         Body: req.files[1].buffer,
     };
