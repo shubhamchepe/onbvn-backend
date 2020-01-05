@@ -54,7 +54,7 @@ var upload = multer()
 
 
 //Creating User
-const createUser = (req,res) => {
+const createUser = async (req,res) => {
     var newUser = new User();
 
     const body = JSON.parse(req.body.data);
@@ -86,36 +86,56 @@ const createUser = (req,res) => {
         Body: req.files[1].buffer,
     };
 
-    // Uploading files to the bucket
+    let aadharBackImage;
+    let aadharFrontImage;
+
     s3.upload(params, function(err, data) {
+        console.log('Uploading Aadhar 1');
         if (err) {
             throw err;
         }
         
         newUser.aadharFrontImage = data.Location
-
-        s3.upload(params1, function(err, data1) {
-            if (err) {
-                throw err;
-            }
-            newUser.aadharBackImage = data1.Location
-            newUser.save((err,newUser)=>{
-                if(err){
-                    console.log('error occured');
-                    res.send('Could not create user')
-                } else{
-                    console.log('User Created Successfully');
-                    res.json(newUser);
-                }
-            })
-            console.log(`File uploaded successfully. ${data.Location}`);
-            console.log(`File uploaded successfully. ${data1.Location}`);
-        })
-         
+        aadharFrontImage = data.Location
+        
     });
 
+    s3.upload(params1, function(err, data1) {
+        console.log('Uploading Aadhar 2');
+        if (err) {
+            throw err;
+        }
+        newUser.aadharBackImage = data1.Location
+        aadharBackImage = data1.Location
+    })
+
+    console.log(aadharFrontImage)
+    console.log(aadharBackImage)
+
+    // UploadingAdhar2 = () => {
+    //      // Uploading files to the bucket
+        
+    // }
+     
+     
+//    combineAadharFunct = async () => {
+//  await UploadingAdhar1();
+//  await UploadingAdhar2();
+//    }
+
     
+
+    newUser.save((err,newUser)=>{
+        if(err){
+            console.log('error occured');
+            res.send('Could not create user')
+        } else{
+            console.log('User Created Successfully');
+            res.json(newUser);
+        }
+    }) 
     
+   
     
 };
 
