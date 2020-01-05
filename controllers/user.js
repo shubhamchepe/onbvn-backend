@@ -57,7 +57,7 @@ var upload = multer()
 const createUser = (req,res) => {
     var newUser = new User();
 
-    const body = JSON.parse(req.body);
+    const body = JSON.parse(req.body.data);
 
     newUser.firstname =  body.firstname;
     newUser.lastname =  body.lastname;
