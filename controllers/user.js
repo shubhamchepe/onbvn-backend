@@ -55,69 +55,64 @@ var upload = multer()
 
 //Creating User
 const createUser = (req,res) => {
-    // var newUser = new User();
+    var newUser = new User();
 
-    // newUser.firstname =  req.body.firstname;
-    // newUser.lastname =  req.body.lastname;
-    // newUser.username =  req.body.username;
-    // newUser.mobileNumber = req.body.mobileNumber;
-    // newUser.email =   req.body.email;
-    // newUser.password =   req.body.password;
-    // newUser.aadharUID =   req.body.aadharUID;
-    // newUser.aadharFrontImage =   req.body.aadharFrontImage;
-    // newUser.aadharBackImage =   req.body.aadharBackImage;
+    const body = JSON.parse(req.body);
 
-    console.log("files " + JSON.stringify(req.files))
-    console.log("file " +JSON.stringify(req.file))
-    console.log("Body "+ JSON.stringify(req.body))
+    newUser.firstname =  body.firstname;
+    newUser.lastname =  body.lastname;
+    newUser.username =  body.username;
+    newUser.mobileNumber = body.mobileNumber;
+    newUser.email =   body.email;
+    newUser.password =   body.password;
+    newUser.aadharUID =   body.aadharUID;
+    // newUser.aadharFrontImage =   req.files.aadharFrontImage;
+    // newUser.aadharBackImage =   body.aadharBackImage;
 
-    res.status(200).send({
-        username: "Shailesh"
-    })
+    // console.log("files " + JSON.stringify(req.files))
+    // console.log("file " +JSON.stringify(req.file))
+    // console.log("Body "+ JSON.stringify(req.body))
 
-    // const params = {
-    //     Bucket: BUCKET_NAME,
-    //     Key: 'cat.jpg', // File name you want to save as in S3
-    //     Body: req.body.aadharFrontImage,
-    //     ContentType: "image/jpg",
-    //     ContentEncoding: 'base64',
-    // };
 
-    // const params1 = {
-    //     Bucket: BUCKET_NAME,
-    //     Key: 'cat1.jpg', // File name you want to save as in S3
-    //     Body: req.body.aadharBackImage,
-    //     ContentType: "image/jpg",
-    //     ContentEncoding: 'base64'
-    // };
+    const params = {
+        Bucket: BUCKET_NAME,
+        Key: req.files[0].originalname, // File name you want to save as in S3
+        Body: req.files[0].buffer,
+    };
 
-    // // Uploading files to the bucket
-    // s3.upload(params, function(err, data) {
-    //     if (err) {
-    //         throw err;
-    //     }
+    const params1 = {
+        Bucket: BUCKET_NAME,
+        Key: req.files[1].originalname, // File name you want to save as in S3
+        Body: req.files[1].buffer,
+    };
+
+    // Uploading files to the bucket
+    s3.upload(params, function(err, data) {
+        if (err) {
+            throw err;
+        }
         
-    //     newUser.aadharFrontImage = data.Location
+        newUser.aadharFrontImage = data.Location
 
-    //     s3.upload(params1, function(err, data1) {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         newUser.aadharBackImage = data1.Location
-    //         newUser.save((err,newUser)=>{
-    //             if(err){
-    //                 console.log('error occured');
-    //                 res.send('Could not create user')
-    //             } else{
-    //                 console.log('User Created Successfully');
-    //                 res.json(newUser);
-    //             }
-    //         })
-    //         console.log(`File uploaded successfully. ${data.Location}`);
-    //         console.log(`File uploaded successfully. ${data1.Location}`);
-    //     })
+        s3.upload(params1, function(err, data1) {
+            if (err) {
+                throw err;
+            }
+            newUser.aadharBackImage = data1.Location
+            newUser.save((err,newUser)=>{
+                if(err){
+                    console.log('error occured');
+                    res.send('Could not create user')
+                } else{
+                    console.log('User Created Successfully');
+                    res.json(newUser);
+                }
+            })
+            console.log(`File uploaded successfully. ${data.Location}`);
+            console.log(`File uploaded successfully. ${data1.Location}`);
+        })
          
-    // });
+    });
 
     
     
