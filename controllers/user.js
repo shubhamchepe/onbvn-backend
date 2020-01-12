@@ -2,48 +2,12 @@ var User = require('../models/User.model');
 const authenticateUser = require('./auth');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const multer = require("multer")
+const multer = require("multer");
+const admin = require("../utils/fbadmin");
+var bucket = admin.storage().bucket();
 
 
-const s3 = new AWS.S3({
-    accessKeyId: config.awsID,
-    secretAccessKey: config.awsSecret
-});
 
-// const params = {
-//     Bucket: BUCKET_NAME,
-//     CreateBucketConfiguration: {
-//         // Set your region here
-//         LocationConstraint: "ap-south-1"
-//     }
-// };
-
-// s3.createBucket(params, function(err, data) {
-//     if (err) console.log(err, err.stack);
-//     else console.log('Bucket Created Successfully', data.Location);
-// });
-
-// const uploadFile = (fileName) => {
-//     // Read content from the file
-//     const fileContent = fs.readFileSync(fileName);
-
-//     // Setting up S3 upload parameters
-//     const params = {
-//         Bucket: BUCKET_NAME,
-//         Key: 'cat.jpg', // File name you want to save as in S3
-//         Body: fileContent
-//     };
-
-//     // Uploading files to the bucket
-//     s3.upload(params, function(err, data) {
-//         if (err) {
-//             throw err;
-//         }
-//         console.log(`File uploaded successfully. ${data.Location}`);
-//     });
-// };
 var storage = multer.memoryStorage({
     destination: function(req, file, callback) {
         callback(null, '');
@@ -54,7 +18,7 @@ var upload = multer()
 
 
 //Creating User
-const createUser = async (req,res) => {
+const createUser = (req,res) => {
     var newUser = new User();
 
     const body = JSON.parse(req.body.data);
@@ -66,76 +30,54 @@ const createUser = async (req,res) => {
     newUser.email =   body.email;
     newUser.password =   body.password;
     newUser.aadharUID =   body.aadharUID;
-    // newUser.aadharFrontImage =   req.files.aadharFrontImage;
-    // newUser.aadharBackImage =   body.aadharBackImage;
-
-    // console.log("files " + JSON.stringify(req.files))
-    // console.log("file " +JSON.stringify(req.file))
-    // console.log("Body "+ JSON.stringify(req.body))
+  
 
 
     const params = {
-        Bucket: config.awsBucket,
-        Key: req.files[0].originalname, // File name you want to save as in S3
+        bucket: process.env.FIREBASE_BUCKET_NAME,
+        fileName: req.files[0].originalname, // File name you want to save as in S3
         Body: req.files[0].buffer,
     };
 
     const params1 = {
-        Bucket: config.awsBucket,
-        Key: req.files[1].originalname, // File name you want to save as in S3
+        bucket: process.env.FIREBASE_BUCKET_NAME,
+        fileName: req.files[1].originalname, // File name you want to save as in S3
         Body: req.files[1].buffer,
     };
 
-    let aadharBackImage;
-    let aadharFrontImage;
+    // Uploading files to the bucket
+    const file = bucket.file(params.fileName);
+    const file1 = bucket.file(params1.fileName)
 
-    s3.upload(params, function(err, data) {
-        console.log('Uploading Aadhar 1');
-        if (err) {
-            throw err;
-        }
-        
-        newUser.aadharFrontImage = data.Location
-        aadharFrontImage = data.Location
-        
-    });
-
-    s3.upload(params1, function(err, data1) {
-        console.log('Uploading Aadhar 2');
-        if (err) {
-            throw err;
-        }
-        newUser.aadharBackImage = data1.Location
-        aadharBackImage = data1.Location
-    })
-
-    console.log(aadharFrontImage)
-    console.log(aadharBackImage)
-
-    // UploadingAdhar2 = () => {
-    //      // Uploading files to the bucket
-        
-    // }
-     
-     
-//    combineAadharFunct = async () => {
-//  await UploadingAdhar1();
-//  await UploadingAdhar2();
-//    }
-
-    
-
-    newUser.save((err,newUser)=>{
-        if(err){
-            console.log('error occured');
-            res.send('Could not create user')
-        } else{
-            console.log('User Created Successfully');
-            res.json(newUser);
-        }
-    }) 
-    
-   
+    file.save(params.Body)
+        .then(success => {
+            newUser.aadharFrontImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+            file1.save(params1.Body)
+                .then(success => {
+                    newUser.aadharBackImage = `https://firebasestorage.googleapis.com/v0/b/${params1.bucket}/o/${params1.fileName}?alt=media`
+                        newUser.save((err,newUser)=>{
+                        if(err){
+                            console.log('error occured');
+                            res.send('Could not create user')
+                        } else{
+                            console.log('User Created Successfully');
+                            res.json(newUser);
+                        }
+                    })
+                })
+                .catch(err => {
+                console.error("err: " + err);
+                var error = new ErrorResponse(400);
+                error.errors += err;
+                res.json(error);
+                })
+        })
+        .catch(err => {
+        console.error("err: " + err);
+        var error = new ErrorResponse(400);
+        error.errors += err;
+        res.json(error);
+        })
     
 };
 
@@ -297,6 +239,50 @@ const AcceptFriendReq = async (req,res) => {
 }
 
 
+const ImageUploadFirebase = (req,res) => {
+    // const params = {
+    //     Bucket: config.awsBucket,
+    //     Key: req.files[0].originalname, // File name you want to save as in S3
+    //     Body: req.files[0].buffer,
+    // };
+
+    // console.log(req.file);
+    // console.log(req.body)
+    // //Uploading files to the bucket
+    // bucket.upload(req.files[0].buffer,{
+    //     destination:params.Key
+    // }).then(data => {
+    //     console.log('File Uploaded' + JSON.stringify(data))
+    //     res.status(200).json(data)
+    // res.status(200).send("Hello")
+    // })
+
+    const fileBuff = req.files[0].buffer
+    const fileName = req.files[0].originalname
+    const mimeType = req.files[0].mimetype
+
+
+    const file = bucket.file(fileName);
+
+    file.save(fileBuff)
+        .then(success => {
+            console.log(JSON.stringify(success));
+        res.json({
+            uploaded: true,
+            created_at: new Date().getTime(),
+            filename: fileName,
+            mimeType: mimeType,
+            url: `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_BUCKET_NAME}/o/${fileName}?alt=media`
+        });
+        })
+        .catch(err => {
+        console.error("err: " + err);
+        var error = new ErrorResponse(400);
+        error.errors += err;
+        res.json(error);
+        })
+};
+
 
 module.exports = {
     getAllUsers,
@@ -307,5 +293,6 @@ module.exports = {
     UpdateFields,
     CheckIfFriends,
     AcceptFriendReq,
-    upload
+    upload,
+    ImageUploadFirebase
 };

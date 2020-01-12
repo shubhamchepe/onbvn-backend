@@ -14,7 +14,7 @@ const {getAllUsers,
        UpdateFields,
        CheckIfFriends,
        upload,
-       AcceptFriendReq} = require('./controllers/user');
+       AcceptFriendReq,ImageUploadFirebase} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -116,6 +116,7 @@ app.post('/DeleteNotification/:id',verifyToken,DeleteUserNotifications);
 //Route To Accept Friend Request
 app.post('/AcceptFriendReq',verifyToken,AcceptFriendReq);
 
+app.post('/fbupload',upload.any(),ImageUploadFirebase);
 
 
 

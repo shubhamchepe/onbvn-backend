@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 //Create Post
-const CreatePost = async (req,res) => {
+const CreatePost = (req,res) => {
     
     try{
-        await jwt.verify(req.token, config.secret , (err, authData) => {
+         jwt.verify(req.token, config.secret , (err, authData) => {
             if(err){
                 console.log(err);
             } else {
