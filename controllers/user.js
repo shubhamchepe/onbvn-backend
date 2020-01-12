@@ -51,7 +51,9 @@ const createUser = (req,res) => {
 
     file.save(params.Body)
         .then(success => {
-            newUser.aadharFrontImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+            console.log(req.files);
+            console.log(req.body);
+                        newUser.aadharFrontImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
             file1.save(params1.Body)
                 .then(success => {
                     newUser.aadharBackImage = `https://firebasestorage.googleapis.com/v0/b/${params1.bucket}/o/${params1.fileName}?alt=media`
