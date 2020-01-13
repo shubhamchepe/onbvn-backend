@@ -19,7 +19,8 @@ const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
        EditPost,
-       DeletePost} = require('./controllers/post');  
+       DeletePost,
+       PostUpload} = require('./controllers/post');  
 const {createNotification,
        getAllNotifications,
        getUserNotifications,
@@ -90,7 +91,7 @@ app.get('/GetId', verifyToken,CheckIfFriends)
 
 
 //Route To Create A Post
-app.post('/Post', verifyToken,CreatePost);
+app.post('/Post', PostUpload.any(),verifyToken,CreatePost);
 //Route To Get All Posts Of Logged In User
 app.get('/Post', verifyToken,GetAllPosts);
 //Route To Get All Posts Of Other User When Searched By Username

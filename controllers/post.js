@@ -24,11 +24,37 @@ const CreatePost = (req,res) => {
                 console.log(err);
             } else {
                 var newPost = new Post();
-                newPost.postImage = req.body.postImage
-                newPost.postCaption = req.body.postCaption;
+                const body = JSON.parse(req.body.data);
+                console.log(body.PostCaption)
+                newPost.postCaption = body.PostCaption;
                 newPost.user = authData.id;
                 newPost.name= authData.username;
                 newPost.date;
+    
+                const params = {
+                    bucket: process.env.FIREBASE_BUCKET_NAME,
+                    fileName: req.files[0].originalname,
+                    Body: req.files[0].buffer,
+                };
+                const file = bucket.file(params.fileName);
+                file.save(params.Body)
+        .then(success => {
+            console.log(req.files);
+            console.log(req.body);
+                        newPost.PostImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+                .catch(err => {
+                console.error("err: " + err);
+                var error = new ErrorResponse(400);
+                error.errors += err;
+                res.json(error);
+                })
+        })
+        .catch(err => {
+        console.error("err: " + err);
+        var error = new ErrorResponse(400);
+        error.errors += err;
+        res.json(error);
+        })
                newPost.save((err,data) => {
                    if(err){
                        console.log(err);
