@@ -1,6 +1,19 @@
 var Post = require('../models/Post.model');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const multer = require("multer");
+const admin = require("../utils/fbadmin");
+var bucket = admin.storage().bucket();
+
+
+
+var storage = multer.memoryStorage({
+    destination: function(req, file, callback) {
+        callback(null, '');
+    }
+});
+
+var PostUpload = multer()
 
 //Create Post
 const CreatePost = (req,res) => {
@@ -11,11 +24,11 @@ const CreatePost = (req,res) => {
                 console.log(err);
             } else {
                 var newPost = new Post();
-                newPost.postUrl = req.body.postUrl;
+                newPost.postImage = req.body.postImage
                 newPost.postCaption = req.body.postCaption;
-                newPost.postAuthor.authorID = authData.id;
-                newPost.postAuthor.authorUsername = authData.username;
-                newPost.postDate;
+                newPost.user = authData.id;
+                newPost.name= authData.username;
+                newPost.date;
                newPost.save((err,data) => {
                    if(err){
                        console.log(err);
@@ -140,4 +153,4 @@ const DeletePost = async (req,res) => {
 
 
 
-module.exports = {CreatePost,GetAllPosts,GetAllPostsByUsername,EditPost,DeletePost};
+module.exports = {CreatePost,GetAllPosts,GetAllPostsByUsername,EditPost,DeletePost,PostUpload};
