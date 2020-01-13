@@ -23,10 +23,11 @@ const CreatePost = (req,res) => {
             if(err){
                 console.log(err);
             } else {
+                console.log('Posting...');
                 var newPost = new Post();
-                const body = JSON.parse(req.body.data);
-                console.log(body.PostCaption)
-                newPost.postCaption = body.PostCaption;
+                 console.log(req.body.PostCaption);
+                 
+                newPost.postCaption = req.body.PostCaption;
                 newPost.user = authData.id;
                 newPost.name= authData.username;
                 newPost.date;
@@ -41,27 +42,21 @@ const CreatePost = (req,res) => {
         .then(success => {
             console.log(req.files);
             console.log(req.body);
-                        newPost.PostImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
-                .catch(err => {
-                console.error("err: " + err);
-                var error = new ErrorResponse(400);
-                error.errors += err;
-                res.json(error);
-                })
-        })
+                        newPost.postImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+                        newPost.save((err,data) => {
+                            if(err){
+                                console.log(err);
+                            } else{
+                                res.json(data);
+                            }
+                        })
+                    })
         .catch(err => {
         console.error("err: " + err);
         var error = new ErrorResponse(400);
         error.errors += err;
         res.json(error);
         })
-               newPost.save((err,data) => {
-                   if(err){
-                       console.log(err);
-                   } else{
-                       res.json(data);
-                   }
-               })
             }
         });
     } catch(error){
