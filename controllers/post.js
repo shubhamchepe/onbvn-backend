@@ -34,7 +34,7 @@ const CreatePost = (req,res) => {
     
                 const params = {
                     bucket: process.env.FIREBASE_BUCKET_NAME,
-                    fileName: req.files[0].originalname,
+                    fileName: req.files[0].name,
                     Body: req.files[0].buffer,
                 };
                 const file = bucket.file(params.fileName);
