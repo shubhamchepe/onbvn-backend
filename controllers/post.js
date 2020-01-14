@@ -31,13 +31,16 @@ const CreatePost = (req,res) => {
                 newPost.user = authData.id;
                 newPost.name= authData.username;
                 newPost.date;
+
+                const uriParts = req.files[0].originalname.split('.');
+                const fileType = uriParts[uriParts.length - 1];
     
                 const params = {
                     bucket: process.env.FIREBASE_BUCKET_NAME,
-                    fileName: req.files[0].name,
+                    fileName: `${authData.username}- Post ${new Date()}.${fileType}`,
                     Body: req.files[0].buffer,
                 };
-                console.log(req.files)
+                console.log(params)
                 const file = bucket.file(params.fileName);
                 file.save(params.Body)
         .then(success => {
