@@ -4,6 +4,8 @@ const config = require('../config');
 const multer = require("multer");
 const admin = require("../utils/fbadmin");
 var bucket = admin.storage().bucket();
+var User = require('../models/User.model');
+
 
 
 
@@ -51,7 +53,9 @@ const CreatePost = (req,res) => {
                             if(err){
                                 console.log(err);
                             } else{
-                                res.json(data);
+                                User.findByIdAndUpdate(authData.id, {
+                                    $push: {Posts:data._id}
+                                })
                             }
                         })
                     })
