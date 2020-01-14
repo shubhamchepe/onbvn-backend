@@ -37,6 +37,7 @@ const CreatePost = (req,res) => {
                     fileName: req.files[0].name,
                     Body: req.files[0].buffer,
                 };
+                console.log(params)
                 const file = bucket.file(params.fileName);
                 file.save(params.Body)
         .then(success => {
