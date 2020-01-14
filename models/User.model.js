@@ -132,10 +132,10 @@ var UserSchema = new Schema({
           type: [0],
           default:'',
       },
-      Posts: {
-          type: [],
-          default:''
-      },
+      Posts: [{
+        type:Schema.Types.ObjectId,
+        ref:'Post'
+      }],
       aadharFrontImage:{
          type: String,
          default:''
