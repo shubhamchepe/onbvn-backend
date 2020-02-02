@@ -84,10 +84,7 @@ const GetAllPosts = async (req,res) => {
             if(err){
                 console.log(err);
             } else {
-                Post.find({
-                        "postAuthor.authorID": authData.id
-            
-                }).exec((err,data) => {
+                Post.find({}).exec((err,data) => {
                     if(err){
                         console.log(err);   
                     } else {
