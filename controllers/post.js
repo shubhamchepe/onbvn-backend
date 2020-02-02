@@ -54,11 +54,11 @@ const CreatePost = (req,res) => {
                                 console.log(err);
                             } else{
                                 //the default schema of post in user is array but not like friends property
-                                const user = await User.findById(authData.id);
-                                user.Posts.push(data._id).then(() => res.json(data))
-                                // User.findByIdAndUpdate(authData.id, {
-                                //     $push: {Posts:data._id}
-                                // }).then(() => res.json(data))
+                                // const user = await User.findById(authData.id);
+                                // user.Posts.push(data._id).then(() => res.json(data))
+                                User.findByIdAndUpdate(authData.id, {
+                                    $push: {Posts:data._id}
+                                }).then(() => res.json(data))
                             }
                         })
                     })
