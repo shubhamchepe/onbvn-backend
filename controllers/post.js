@@ -49,7 +49,7 @@ const CreatePost = (req,res) => {
             console.log(req.files);
             console.log(req.body);
                         newPost.postImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
-                        newPost.save((err,data) => {
+                        newPost.save(async (err,data) => {
                             if(err){
                                 console.log(err);
                             } else{
