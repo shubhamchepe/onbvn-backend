@@ -39,7 +39,7 @@ const CreatePost = (req,res) => {
     
                 const params = {
                     bucket: process.env.FIREBASE_BUCKET_NAME,
-                    fileName: `${authData.username}-Post${new Date()}.${fileType}`,
+                    fileName: `${authData.username}-Post.${fileType}`,
                     Body: req.files[0].buffer,
                 };
                 console.log(params)
