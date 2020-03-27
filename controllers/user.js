@@ -285,6 +285,59 @@ const ImageUploadFirebase = (req,res) => {
         })
 };
 
+//Update Profile Picture
+const UpdateDP = (req,res) => {
+    
+    try{
+         jwt.verify(req.token, config.secret , (err, authData) => {
+            if(err){
+                console.log(err);
+            } else {
+                console.log('Uploading DP');
+                
+                const uriParts = req.files[0].originalname.split('.');
+                const fileType = uriParts[uriParts.length - 1];
+    
+                const params = {
+                    bucket: process.env.FIREBASE_BUCKET_NAME,
+                    fileName: `${authData.username}-DP.${fileType}`,
+                    Body: req.files[0].buffer,
+                };
+                //console.log(params)
+                const file = bucket.file(params.fileName);
+                file.save(params.Body)
+        .then(success => {
+            console.log(req.files);
+            console.log(req.body);
+                        UpdatedDP = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+                        UpdatedDP.save(async (err,data) => {
+                            if(err){
+                                console.log(err);
+                            } else{
+                                //the default schema of post in user is array but not like friends property
+                                // const user = await User.findById(authData.id);
+                                // user.Posts.push(data._id).then(() => res.json(data))
+                                User.findByIdAndUpdate(authData.id, {
+                                    profilePicture:data.UpdatedDP
+                                }).then(() => res.json(data))
+                            }
+                        })
+                    })
+        .catch(err => {
+        console.error("err: " + err);
+        var error = new ErrorResponse(400);
+        error.errors += err;
+        res.json(error);
+        })
+            }
+        });
+    } catch(error){
+        console.log(error);
+        
+    }
+    
+}
+
 
 module.exports = {
     getAllUsers,
@@ -296,5 +349,6 @@ module.exports = {
     CheckIfFriends,
     AcceptFriendReq,
     upload,
-    ImageUploadFirebase
+    ImageUploadFirebase,
+    UpdateDP
 };

@@ -14,7 +14,9 @@ const {getAllUsers,
        UpdateFields,
        CheckIfFriends,
        upload,
-       AcceptFriendReq,ImageUploadFirebase} = require('./controllers/user');
+       AcceptFriendReq,
+       ImageUploadFirebase,
+       UpdateDP} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -83,7 +85,9 @@ app.get('/getUserByFirstname/:firstname', verifyToken, getUserByFirstname);
 //Route To Authenticate User
 app.post('/Auth', authenticateUser);
 //Route To Update Profile Picture
-app.post('/UpdateFields', verifyToken,UpdateFields)
+app.post('/UpdateFields', verifyToken,UpdateFields);
+//Route To Update DP
+app.post('/UpdateDP', verifyToken,UpdateDP);
 
 //Delete This Route
 app.get('/GetId', verifyToken,CheckIfFriends)
