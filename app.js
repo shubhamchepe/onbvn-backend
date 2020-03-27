@@ -87,7 +87,7 @@ app.post('/Auth', authenticateUser);
 //Route To Update Profile Picture
 app.post('/UpdateFields', verifyToken,UpdateFields);
 //Route To Update DP
-app.post('/UpdateDP', verifyToken,UpdateDP);
+app.post('/UpdateDP', upload.any(),verifyToken,UpdateDP);
 
 //Delete This Route
 app.get('/GetId', verifyToken,CheckIfFriends)
