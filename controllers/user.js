@@ -310,18 +310,14 @@ const UpdateDP = (req,res) => {
             console.log(req.files);
             console.log(req.body);
                         UpdatedDP = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
-                        UpdatedDP.save(async (err,data) => {
-                            if(err){
-                                console.log(err);
-                            } else{
+                       
                                 //the default schema of post in user is array but not like friends property
                                 // const user = await User.findById(authData.id);
                                 // user.Posts.push(data._id).then(() => res.json(data))
                                 User.findByIdAndUpdate(authData.id, {
-                                    profilePicture:data.UpdatedDP
+                                    profilePicture:UpdatedDP
                                 }).then(() => res.json(data))
-                            }
-                        })
+                      
                     })
         .catch(err => {
         console.error("err: " + err);
