@@ -27,7 +27,8 @@ const {createNotification,
        getAllNotifications,
        getUserNotifications,
        GetActivityLog,
-       DeleteUserNotifications} = require('./controllers/notification');          
+       DeleteUserNotifications,
+       UpdateUserNotification} = require('./controllers/notification');          
 const {authenticateUser,verifyToken} = require('./controllers/auth'); 
 const connectDb = require('./utils/connectDb');     
 var db =  'mongodb+srv://shubhamchepe:132133@Shubham@cluster0-3zzun.mongodb.net/test?retryWrites=true&w=majority';
@@ -116,6 +117,8 @@ app.get('/Notifications/ofuser',verifyToken,getUserNotifications);
 app.get('/ActivityLog/ofuser',verifyToken,GetActivityLog);
 //Route To Delete Particular Notification Of Signed In User By Id
 app.post('/DeleteNotification/:id',verifyToken,DeleteUserNotifications);
+app.post('/UpdateNotification/:id',verifyToken,UpdateUserNotification);
+
 
 
 //Route To Accept Friend Request

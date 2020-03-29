@@ -115,6 +115,24 @@ const getUserNotifications = async (req,res) => {
     });
 };
 
+//Updating Particular Notification
+const UpdateUserNotification = async (req,res) => {
+    jwt.verify(req.token, config.secret , async (err, authData) => {
+        if(err){
+           res.send(err)
+        } else {
+            console.log('Updating Particular Notification Of User');
+            ParticularNotification = req.params.id;
+            await User.findByIdAndUpdate(req.body.parnot,{
+                NotificationType:'FriendRequest-Accepted',
+                Status:true
+             })
+             console.log('Deleted Form User')
+         res.status(200).json(notification)
+        }
+    });
+};
+
 
 //Deleting Particular Notification Of User
 const DeleteUserNotifications = async (req,res) => {
@@ -141,5 +159,6 @@ module.exports = {
     getAllNotifications,
     getUserNotifications,
     GetActivityLog,
-    DeleteUserNotifications
+    DeleteUserNotifications,
+    UpdateUserNotification
 };

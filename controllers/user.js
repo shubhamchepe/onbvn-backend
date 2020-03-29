@@ -1,4 +1,5 @@
 var User = require('../models/User.model');
+var Notification = require('../models/Notification.model');
 const authenticateUser = require('./auth');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
@@ -235,6 +236,11 @@ const AcceptFriendReq = async (req,res) => {
                         }
                     })
                 }
+            }).then(() => {
+                Notification.findByIdAndUpdate(req.body.notfID, {
+                    NotificationType:'FriendRequest-Accepted',
+                    Status:true
+                })
             })
         }
     });
