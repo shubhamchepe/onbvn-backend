@@ -41,10 +41,7 @@ const createNotification = async (req,res) => {
                res.json(newNotification);
            }
         })
-        user.Notifications.push(newNotification);
-        user1.ActivityLog.push(newNotification);
-        await user.save();
-        await user1.save();
+    try{
         User.findByIdAndUpdate(authData.id, {
             $push: {ActivityLog:newNotification}
         }, (err,data) => {
@@ -64,6 +61,9 @@ const createNotification = async (req,res) => {
                 }
             })
         })
+    } catch(error){
+      console.log('Error Occured In Updating Notifications In Logs')
+    }
        }
     });
     };
