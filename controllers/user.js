@@ -235,8 +235,8 @@ const AcceptFriendReq = async (req,res) => {
                             res.json(data)
                             console.log("Updating Notifications");
                             Notification.findByIdAndUpdate(req.body.notfID, {
-                                NotificationType:'FriendRequest-Accepted',
-                                Status:true
+                                NotificationType:req.body.NotType,
+                                Status:req.body.NotStatus
                             });
                         }
                     })
