@@ -122,7 +122,7 @@ app.post('/UpdateNotification/:id',verifyToken,UpdateUserNotification);
 
 
 //Route To Accept Friend Request
-app.post('/AcceptFriendReq',verifyToken,AcceptFriendReq);
+app.post('/AcceptFriendReq/:notfID',verifyToken,AcceptFriendReq);
 
 app.post('/fbupload',upload.any(),ImageUploadFirebase);
 
