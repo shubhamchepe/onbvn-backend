@@ -37,7 +37,7 @@ const createNotification = async (req,res) => {
                console.log('error occured');
                res.send('Could not create user')
            } else{
-               console.log('User Created Successfully');
+               console.log('Notification Created Successfully');
                res.json(newNotification);
            }
         })
