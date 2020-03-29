@@ -39,10 +39,8 @@ const createNotification = async (req,res) => {
            } else{
                console.log('Notification Created Successfully');
                res.json(newNotification);
-               user.Notifications.push(newNotification);
-               user1.ActivityLog.push(newNotification);
-                user.save();
-                user1.save();
+               user.Notifications.push(newNotification).save();
+               user1.ActivityLog.push(newNotification).save();
            }
         })
         
