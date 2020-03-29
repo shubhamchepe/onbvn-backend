@@ -41,8 +41,8 @@ const createNotification = async (req,res) => {
                res.json(newNotification);
                user.Notifications.push(newNotification);
                user1.ActivityLog.push(newNotification);
-               await user.save();
-               await user1.save();
+                user.save();
+                user1.save();
            }
         })
         
