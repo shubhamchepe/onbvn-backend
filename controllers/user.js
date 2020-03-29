@@ -233,14 +233,14 @@ const AcceptFriendReq = async (req,res) => {
                             console.log(err)
                         } else{
                             res.json(data)
+                            console.log("Updating Notifications");
+                            Notification.findByIdAndUpdate(req.body.notfID, {
+                                NotificationType:'FriendRequest-Accepted',
+                                Status:true
+                            });
                         }
                     })
                 }
-            }).then(() => {
-                Notification.findByIdAndUpdate(req.body.notfID, {
-                    NotificationType:'FriendRequest-Accepted',
-                    Status:true
-                })
             })
         }
     });
