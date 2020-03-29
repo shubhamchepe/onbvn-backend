@@ -45,6 +45,25 @@ const createNotification = async (req,res) => {
         user1.ActivityLog.push(newNotification);
         await user.save();
         await user1.save();
+        User.findByIdAndUpdate(authData.id, {
+            $push: {ActivityLog:newNotification}
+        }, (err,data) => {
+            if(err){
+                console.log(err)
+            } else{
+                console.log('Activity Log Updated')
+            }
+        }).then(() => {
+            User.findByIdAndUpdate(req.params.ToUserID, {
+                $push: {Notifications:newNotification}
+            }, (err,data1) => {
+                if(err){
+                    console.log(err)
+                } else{
+                    console.log('Notification Updated')
+                }
+            })
+        })
        }
     });
     };
