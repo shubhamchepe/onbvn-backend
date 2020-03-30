@@ -328,7 +328,13 @@ const UpdateDP = (req,res) => {
                                 // user.Posts.push(data._id).then(() => res.json(data))
                                 User.findByIdAndUpdate(authData.id, {
                                     profilePicture:UpdatedDP
-                                }).then((data) => res.json(data))
+                                }, (err,data) => {
+                                    if(err){
+                                        console.log(err)
+                                    }else{
+                                        console.log('DP Updated!')
+                                    }
+                                })
                       
                     })
         .catch(err => {
