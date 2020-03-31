@@ -6,6 +6,7 @@ const config = require('../config');
 const multer = require("multer");
 const admin = require("../utils/fbadmin");
 var bucket = admin.storage().bucket();
+const uuid = require('uuid/v4');
 
 
 
@@ -311,40 +312,38 @@ const UpdateDP = (req,res) => {
                 const fileType = uriParts[uriParts.length - 1];
     
                 const params = {
-                    bucket: process.env.FIREBASE_BUCKET_NAME,
-                    fileName: `${authData.username}-DP.${fileType}`,
+                    bucket: `${process.env.FIREBASE_BUCKET_NAME}/${authData.username}`,
+                    fileName: `${authData.username}-DP-${uuid()}.${fileType}`,
                     Body: req.files[0].buffer,
                 };
-                 bucket.delete(params.fileName).then(() => {
-                    const file = bucket.file(params.fileName);
-                    file.save(params.Body)
-            .then(success => {
-                console.log(req.files);
-                console.log(req.body);
-                            UpdatedDP = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
-                           
-                                    //the default schema of post in user is array but not like friends property
-                                    // const user = await User.findById(authData.id);
-                                    // user.Posts.push(data._id).then(() => res.json(data))
-                                    User.findByIdAndUpdate(authData.id, {
-                                        profilePicture:UpdatedDP
-                                    }, (err,data) => {
-                                        if(err){
-                                            console.log(err)
-                                        }else{
-                                            console.log('DP Updated!')
-                                        }
-                                    })
-                          
-                        })
-            .catch(err => {
-            console.error("err: " + err);
-            var error = new ErrorResponse(400);
-            error.errors += err;
-            res.json(error);
-            })
-                })
                 //console.log(params)
+                const file = bucket.file(params.fileName);
+                file.save(params.Body)
+        .then(success => {
+            console.log(req.files);
+            console.log(req.body);
+                        UpdatedDP = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
+                       
+                                //the default schema of post in user is array but not like friends property
+                                // const user = await User.findById(authData.id);
+                                // user.Posts.push(data._id).then(() => res.json(data))
+                                User.findByIdAndUpdate(authData.id, {
+                                    profilePicture:UpdatedDP
+                                }, (err,data) => {
+                                    if(err){
+                                        console.log(err)
+                                    }else{
+                                        console.log('DP Updated!')
+                                    }
+                                })
+                      
+                    })
+        .catch(err => {
+        console.error("err: " + err);
+        var error = new ErrorResponse(400);
+        error.errors += err;
+        res.json(error);
+        })
             }
         });
     } catch(error){
