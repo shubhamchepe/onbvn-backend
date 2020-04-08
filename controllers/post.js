@@ -151,7 +151,7 @@ const DeletePost = async (req,res) => {
                    if(err){
                        console.log(err);
                    } else{
-                       User.findByIdAndDelete(authData.id, {
+                       User.findByIdAndUpdate(authData.id, {
                         $pull: {Posts:postID}
                        }, (err,data) => {
                            if(err){
