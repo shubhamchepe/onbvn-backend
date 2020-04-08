@@ -147,7 +147,7 @@ const DeletePost = async (req,res) => {
               console.log(err);
           } else{
                postID = req.params.id;
-               Post.findOneAndDelete({}).where({"user": authData.id,"_id":postID}).exec((err,data) => {
+               Post.findOneAndDelete({}).where({"_id":postID}).exec((err,data) => {
                    if(err){
                        console.log(err);
                    } else{
