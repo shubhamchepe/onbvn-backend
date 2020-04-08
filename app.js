@@ -16,7 +16,7 @@ const {getAllUsers,
        upload,
        AcceptFriendReq,
        ImageUploadFirebase,
-       UpdateDP} = require('./controllers/user');
+       UpdateDP,Unfriend} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -89,7 +89,8 @@ app.post('/Auth', authenticateUser);
 app.post('/UpdateFields', verifyToken,UpdateFields);
 //Route To Update DP
 app.post('/UpdateDP', upload.any(),verifyToken,UpdateDP);
-
+//Route To Unfriend
+app.post('/Unfriend',verifyToken,Unfriend);
 //Delete This Route
 app.get('/GetId', verifyToken,CheckIfFriends)
 

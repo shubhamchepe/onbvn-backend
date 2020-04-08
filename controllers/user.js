@@ -253,6 +253,32 @@ const AcceptFriendReq = async (req,res) => {
     });
 }
 
+//Unfriend
+const Unfriend = async (req,res) => {
+    jwt.verify(req.token, config.secret , async (err, authData) => {
+        if(err){
+            console.log(err);
+        } else {
+            User.findByIdAndUpdate(authData.id, {
+                $pull: {Friends:req.body.friend}
+            }, (err,data) => {
+                if(err){
+                    console.log(err)
+                } else{
+                    User.findByIdAndUpdate(req.body.friend, {
+                        $pull: {Friends:authData.id}
+                    }, (err,data1) => {
+                        if(err){
+                            console.log(err)
+                        } else{
+                            console.log('Unfriended')
+                        }
+                    })
+                }
+            })
+        }
+    });
+}
 
 const ImageUploadFirebase = (req,res) => {
     // const params = {
@@ -342,5 +368,6 @@ module.exports = {
     AcceptFriendReq,
     upload,
     ImageUploadFirebase,
-    UpdateDP
+    UpdateDP,
+    Unfriend
 };
