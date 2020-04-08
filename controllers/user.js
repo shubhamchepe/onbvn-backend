@@ -307,28 +307,12 @@ const UpdateDP = (req,res) => {
                 console.log(err);
             } else {
                 console.log('Uploading DP');
-                
-                const uriParts = req.files[0].originalname.split('.');
-                const fileType = uriParts[uriParts.length - 1];
-    
-                const params = {
-                    bucket: `${process.env.FIREBASE_BUCKET_NAME}`,
-                    fileName: `${authData.username}-DP-${uuid()}.${fileType}`,
-                    Body: req.files[0].buffer,
-                };
-                //console.log(params)
-                const file = bucket.file(params.fileName);
-                file.save(params.Body)
-        .then(success => {
-            console.log(req.files);
-            console.log(req.body);
-                        UpdatedDP = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
                        
                                 //the default schema of post in user is array but not like friends property
                                 // const user = await User.findById(authData.id);
                                 // user.Posts.push(data._id).then(() => res.json(data))
                                 User.findByIdAndUpdate(authData.id, {
-                                    profilePicture:UpdatedDP
+                                    profilePicture:req.body.PostImage
                                 }, (err,data) => {
                                     if(err){
                                         console.log(err)
@@ -337,13 +321,6 @@ const UpdateDP = (req,res) => {
                                     }
                                 })
                       
-                    })
-        .catch(err => {
-        console.error("err: " + err);
-        var error = new ErrorResponse(400);
-        error.errors += err;
-        res.json(error);
-        })
             }
         });
     } catch(error){
