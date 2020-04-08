@@ -312,7 +312,7 @@ const UpdateDP = (req,res) => {
                 const fileType = uriParts[uriParts.length - 1];
     
                 const params = {
-                    bucket: `${process.env.FIREBASE_BUCKET_NAME}/${authData.username}`,
+                    bucket: `${process.env.FIREBASE_BUCKET_NAME}`,
                     fileName: `${authData.username}-DP-${uuid()}.${fileType}`,
                     Body: req.files[0].buffer,
                 };

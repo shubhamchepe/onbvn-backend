@@ -30,25 +30,11 @@ const CreatePost = (req,res) => {
                  console.log(req.body.PostCaption);
                  
                 newPost.postCaption = req.body.PostCaption;
+                newPost.postImage = req.body.PostImage;
                 newPost.user = authData.id;
                 newPost.name= authData.username;
                 newPost.date;
 
-                const uriParts = req.files[0].originalname.split('.');
-                const fileType = uriParts[uriParts.length - 1];
-    
-                const params = {
-                    bucket: process.env.FIREBASE_BUCKET_NAME,
-                    fileName: `${authData.username}-Post.${fileType}`,
-                    Body: req.files[0].buffer,
-                };
-                console.log(params)
-                const file = bucket.file(params.fileName);
-                file.save(params.Body)
-        .then(success => {
-            console.log(req.files);
-            console.log(req.body);
-                        newPost.postImage = `https://firebasestorage.googleapis.com/v0/b/${params.bucket}/o/${params.fileName}?alt=media`
                         newPost.save(async (err,data) => {
                             if(err){
                                 console.log(err);
@@ -61,7 +47,7 @@ const CreatePost = (req,res) => {
                                 }).then(() => res.json(data))
                             }
                         })
-                    })
+             
         .catch(err => {
         console.error("err: " + err);
         var error = new ErrorResponse(400);
