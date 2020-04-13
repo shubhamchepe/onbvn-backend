@@ -8,7 +8,7 @@ const app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 const port = process.env.PORT ||3000;
-server.listen(port);
+server.listen(port+1);
 const {getAllUsers,
        createUser,
        getUserById,
