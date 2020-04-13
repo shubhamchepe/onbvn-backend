@@ -9,7 +9,6 @@ var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 
 
-
 var storage = multer.memoryStorage({
     destination: function(req, file, callback) {
         callback(null, '');
