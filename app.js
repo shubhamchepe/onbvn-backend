@@ -8,7 +8,7 @@ const app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 const port = process.env.PORT ||3000;
-server.listen(port+1);
+server.listen(app);
 const {getAllUsers,
        createUser,
        getUserById,
@@ -109,10 +109,10 @@ app.get('/GetId', verifyToken,CheckIfFriends)
 //        });
 // })
 
-// io.configure(function () { 
-//        io.set("transports", ["xhr-polling"]); 
-//        io.set("polling duration", 10); 
-//      });
+io.configure(function () { 
+       io.set("transports", ["xhr-polling"]); 
+       io.set("polling duration", 10); 
+     });
 
 io.on('connection', (socket) => {
        console.log("User connected", socket.id);
