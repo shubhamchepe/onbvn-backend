@@ -31,7 +31,8 @@ const {createNotification,
        getUserNotifications,
        GetActivityLog,
        DeleteUserNotifications,
-       UpdateUserNotification} = require('./controllers/notification');          
+       UpdateUserNotification} = require('./controllers/notification');    
+const {GetChats} = require('./controllers/chat');             
 const {authenticateUser,verifyToken} = require('./controllers/auth'); 
 const connectDb = require('./utils/connectDb');     
 
@@ -101,48 +102,6 @@ app.post('/Unfriend',verifyToken,Unfriend);
 app.get('/GetId', verifyToken,CheckIfFriends)
 
 
-// io.on('connection', socket => {
-//        console.log(socket.id);
-//        socket.on('Chat Message', msg => {
-//               console.log(msg);
-//        io.emit('Chat Message', msg)
-//        });
-// })
-
-// io.configure(function () { 
-//        io.set("transports", ["xhr-polling"]); 
-//        io.set("polling duration", 10); 
-//      });
-
-// io.on('connection', (socket) => {
-//        console.log("User connected", socket.id);
-
-//        socket.on('user_connected', (username) => {
-//               console.log("Username :" + username);
-//               users[username] = socket.id;
-//               console.log(users);
-
-//        io.emit('user_connected', username);   
-
-//        socket.on('send_message', (data) => {
-//              var socketId = users[data.ToUser];
-//              var socketId1 = users[data.FromUser];
-//              io.to(socketId1).emit('new_message', data)
-//              var chat = new Chat(data)
-//              chat.save((err,data) => {
-//                     if(err){
-//                            console.log('Error Occured Saving Chat')
-//                     } else{
-//                            console.log('Chat Saved')
-//                     }
-//              })
-//              console.log(data);
-//              data.type = 'in'
-//              io.to(socketId).emit('new_message', data)
-//        })    
-//        })
-// })
-
 
 //Route To Create A Post
 app.post('/Post', PostUpload.any(),verifyToken,CreatePost);
@@ -174,6 +133,10 @@ app.post('/UpdateNotification/:id',verifyToken,UpdateUserNotification);
 app.post('/AcceptFriendReq/:notfID',verifyToken,AcceptFriendReq);
 
 app.post('/fbupload',upload.any(),ImageUploadFirebase);
+
+
+//Route To Fetch Chats Between Users
+app.get('/getchats/:touser', verifyToken,GetChats);
 
 
 
