@@ -11,7 +11,7 @@ const GetChats = async (req,res) => {
           if(err){
               console.log(err);
           } else{
-             Chat.find({FromUser: authData.username || req.params.touser, ToUser: authData.username || req.params.touser})
+             Chat.find().or([{FromUser: authData.username,ToUser: req.params.touser}, {FromUser: req.params.touser, ToUser: authData.username}])
              .then(data => res.json(data)).catch(err => console.log('Error occured fetching messages...'))
           }
         });
