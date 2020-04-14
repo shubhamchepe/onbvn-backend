@@ -15,7 +15,7 @@ const GetChats = async (req,res) => {
                  if(err){
                      console.log('Error In Getting Chat Messages')
                  }else{
-                     console.log('Chats Retrived...')
+                     console.log('Chats Retrived...' + data)
                  }
              })
               
