@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const User = require('./User.model')
+
 
 const ChatSchema = new Schema({
     ConvoBetween:{

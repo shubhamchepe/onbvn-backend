@@ -34,7 +34,7 @@ const {createNotification,
        UpdateUserNotification} = require('./controllers/notification');          
 const {authenticateUser,verifyToken} = require('./controllers/auth'); 
 const connectDb = require('./utils/connectDb');     
-var db =  'mongodb+srv://shubhamchepe:132133@Shubham@cluster0-3zzun.mongodb.net/test?retryWrites=true&w=majority';
+
 connectDb();
 // cors origin URL - Allow inbound traffic from origin
 corsOptions = {
