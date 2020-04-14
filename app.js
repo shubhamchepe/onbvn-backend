@@ -5,10 +5,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+//var server = require('http').Server(app);
+//var io = require('socket.io')(server);
 const port = process.env.PORT ||3000;
-server.listen(app);
+//server.listen(port-1);
 const {getAllUsers,
        createUser,
        getUserById,
@@ -48,9 +48,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended:true
 }));
-var Chat = require('./models/Chat.model');
-var users = [];
-users.length = 2;
+// var Chat = require('./models/Chat.model');
+// var users = [];
+// users.length = 2;
 
 
 {/*
@@ -114,34 +114,34 @@ app.get('/GetId', verifyToken,CheckIfFriends)
 //        io.set("polling duration", 10); 
 //      });
 
-io.on('connection', (socket) => {
-       console.log("User connected", socket.id);
+// io.on('connection', (socket) => {
+//        console.log("User connected", socket.id);
 
-       socket.on('user_connected', (username) => {
-              console.log("Username :" + username);
-              users[username] = socket.id;
-              console.log(users);
+//        socket.on('user_connected', (username) => {
+//               console.log("Username :" + username);
+//               users[username] = socket.id;
+//               console.log(users);
 
-       io.emit('user_connected', username);   
+//        io.emit('user_connected', username);   
 
-       socket.on('send_message', (data) => {
-             var socketId = users[data.ToUser];
-             var socketId1 = users[data.FromUser];
-             io.to(socketId1).emit('new_message', data)
-             var chat = new Chat(data)
-             chat.save((err,data) => {
-                    if(err){
-                           console.log('Error Occured Saving Chat')
-                    } else{
-                           console.log('Chat Saved')
-                    }
-             })
-             console.log(data);
-             data.type = 'in'
-             io.to(socketId).emit('new_message', data)
-       })    
-       })
-})
+//        socket.on('send_message', (data) => {
+//              var socketId = users[data.ToUser];
+//              var socketId1 = users[data.FromUser];
+//              io.to(socketId1).emit('new_message', data)
+//              var chat = new Chat(data)
+//              chat.save((err,data) => {
+//                     if(err){
+//                            console.log('Error Occured Saving Chat')
+//                     } else{
+//                            console.log('Chat Saved')
+//                     }
+//              })
+//              console.log(data);
+//              data.type = 'in'
+//              io.to(socketId).emit('new_message', data)
+//        })    
+//        })
+// })
 
 
 //Route To Create A Post
