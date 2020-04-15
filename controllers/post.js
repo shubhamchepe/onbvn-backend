@@ -73,7 +73,7 @@ const GetAllPosts = async (req,res) => {
             
                 Post.find({ 
 
-                    '_id': { $in: authData.completeUser.Friends} 
+                    'user': { $in: authData.completeUser.Friends} 
                     
                     }, function(err, data){ 
                     
