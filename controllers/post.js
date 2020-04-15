@@ -71,14 +71,16 @@ const GetAllPosts = async (req,res) => {
                 console.log(err);
             } else {
                 let arr = authData.completeUser.Friends.map(ele => new mongoose.Types.ObjectId(ele));
-
-                Post.find().where('user').in(arr).exec((err, data) => {
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(data)
-                    }
-                });
+                console.log(arr)
+                Post.find({ 
+                      
+                    '_id': { $in: arr} 
+                    
+                    }, function(err, docs){ 
+                    
+                    console.log(docs);
+                    
+                    });
             }
         });
 
