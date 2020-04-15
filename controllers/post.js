@@ -63,24 +63,20 @@ const CreatePost = (req,res) => {
     
 }
 
-//Get All Posts Of Particular Logged In User & His Friends
+//Get All Posts Of Particular Logged In User
 const GetAllPosts = async (req,res) => {
     try{
         await jwt.verify(req.token, config.secret , (err, authData) => {
             if(err){
-                console.log(authData);
+                console.log(err);
             } else {
-               Post.find({
-                   '_id':{
-                       $in:[authData.user.Friends]
-                   }
-               },(err,data) => {
-                   if(err){
-                       console.log('Error In Finding Posts')
-                   }else{
-                       res.json(data)
-                   }
-               })
+                Post.find({user:authData.id}).exec((err,data) => {
+                    if(err){
+                        console.log(err);   
+                    } else {
+                        res.json(authData);
+                    }
+                })
             }
         });
 
