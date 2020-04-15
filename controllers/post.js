@@ -71,11 +71,7 @@ const GetAllPosts = async (req,res) => {
                 console.log(err);
             } else {
             
-                Post.find({
-                    'user':{
-                        $in:authData.completeUser.Friends
-                    }
-                }).exec((err, data) => {
+                Post.find().and([{user:authData.id},{user:authData.completeUser.Friends}]).exec((err, data) => {
                     if(err){
                         console.log(err)
                     }else{
