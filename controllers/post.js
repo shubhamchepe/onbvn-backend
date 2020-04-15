@@ -79,7 +79,7 @@ const GetAllPosts = async (req,res) => {
                             if(err){
                                 res.json(err)
                             }else{
-                                res.json(data1)
+                               return res.json(data1)
                             }
                         })
                      }
