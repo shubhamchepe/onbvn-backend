@@ -77,7 +77,7 @@ const GetAllPosts = async (req,res) => {
                     if(err){
                         console.log(err)
                     }else{
-                        res.json(data)
+                        console.log(data)
                     }
                 })
             }
