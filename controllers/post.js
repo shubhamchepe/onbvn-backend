@@ -5,7 +5,7 @@ const multer = require("multer");
 const admin = require("../utils/fbadmin");
 var bucket = admin.storage().bucket();
 var User = require('../models/User.model');
-
+var mongoose = require('mongoose');
 
 
 
