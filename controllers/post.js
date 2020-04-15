@@ -77,7 +77,7 @@ const GetAllPosts = async (req,res) => {
                     }else{
                         res.json(data)
                     }
-                })
+                }).catch(err => console.log(err))
             }
         });
 
