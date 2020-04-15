@@ -71,20 +71,14 @@ const GetAllPosts = async (req,res) => {
                 console.log(err);
             } else {
             
-                Post.find({ 
-
-                    user: { $in: authData.completeUser.Friends} 
-                    
-                    }, function(err, data){ 
-                    
+                Post.aggregate.match({ user: { $in: authData.completeUser.Friends } }, (err,data) => {
                     if(err){
-                        console.log('Error In Fetching Posts' + err)
+                        console.log(err)
                     }else{
+                        console.log(data);
                         res.json(data)
-                        console.log(data)
                     }
-                    
-                    });
+                })
             }
         });
 
