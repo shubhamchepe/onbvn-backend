@@ -68,7 +68,7 @@ const GetAllPosts = async (req,res) => {
     try{
         await jwt.verify(req.token, config.secret , (err, authData) => {
             if(err){
-                console.log(err);
+                console.log(authData);
             } else {
                Post.find({
                    '_id':{
