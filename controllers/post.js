@@ -70,20 +70,11 @@ const GetAllPosts = async (req,res) => {
             if(err){
                 console.log(err);
             } else {
-                Post.find({user:authData.id}).then((err,data) => {
+                User.find(authData.completeUser.Friends).then((err,data) => {
                     if(err){
                         console.log(err)
                     }else{
-                        // console.log('Mera Post:' + data);
-                        authData.completeUser.Friends.forEach(element => {
-                            Post.find({user:element}).then((err,friendsPost) => {
-                                if(err){
-                                    console.log('Error Fetching Posts');
-                                }else{
-                                    console.log('Friend Ke Posts:' + friendsPost)
-                                }
-                            })
-                        });
+                        console.log(data)
                     }
                 })
             }
