@@ -70,7 +70,13 @@ const GetAllPosts = async (req,res) => {
             if(err){
                 console.log(err);
             } else {
-                 res.json(authData.completeUser.Friends)
+                 Post.find({ "user": { "$in": authData.completeUser.Friends } }).exec((err,data) => {
+                     if(err){
+                         res.json(err)
+                     }else{
+                         res.json(data)
+                     }
+                 })
             }
         });
 
