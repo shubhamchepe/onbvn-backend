@@ -70,15 +70,7 @@ const GetAllPosts = async (req,res) => {
             if(err){
                 console.log(err);
             } else {
-            
-                Post.aggregate.match({ user: { $in: authData.completeUser.Friends } }, (err,data) => {
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(data);
-                        res.json(data)
-                    }
-                })
+                 console.log(authData.completeUser.Friends)
             }
         });
 
