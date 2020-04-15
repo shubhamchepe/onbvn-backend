@@ -71,13 +71,13 @@ const GetAllPosts = async (req,res) => {
                 console.log(err);
             } else {
             
-                Post.find({user:authData.id}).then((err,data) => {
+                Post.find({user: authData.id}).exec((err,data) => {
                     if(err){
-                        console.log('Error Occured Fetching Posts')
+                        console.log(err)
                     }else{
                         res.json(data)
                     }
-                }).catch(err => console.log(err))
+                })
             }
         });
 
