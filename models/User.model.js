@@ -110,7 +110,7 @@ var UserSchema = new Schema({
       BrandUserLoves:[],
       Hobby:[],
       Friends: {
-         type:[]
+         type:[mongoose.Types.ObjectId]
       },
       ColonyFriends: {
           type: [],

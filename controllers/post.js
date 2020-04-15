@@ -70,17 +70,14 @@ const GetAllPosts = async (req,res) => {
             if(err){
                 console.log(err);
             } else {
-                let arr = authData.completeUser.Friends.map(ele => new mongoose.Types.ObjectId(ele));
-                console.log(arr)
-                Post.find({ 
-                      
-                    '_id': { $in: arr} 
-                    
-                    }, function(err, docs){ 
-                    
-                    console.log(docs);
-                    
-                    });
+            
+                Post.find({user:authData.id}).then((err,data) => {
+                    if(err){
+                        console.log('Error Occured Fetching Posts')
+                    }else{
+                        res.json(data)
+                    }
+                })
             }
         });
 
