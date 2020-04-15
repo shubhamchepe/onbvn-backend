@@ -74,7 +74,7 @@ const GetAllPosts = async (req,res) => {
                     if(err){
                         console.log(err)
                     }else{
-                        console.log('Mera Post:' + data);
+                        // console.log('Mera Post:' + data);
                         authData.completeUser.Friends.forEach(element => {
                             Post.find({user:element}).then((err,friendsPost) => {
                                 if(err){
