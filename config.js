@@ -5,5 +5,7 @@ module.exports = {
     STRIPE_SECRET_KEY: "",
     awsID: process.env.AWS_ID,
      awsSecret: process.env.AWS_SECRET,
-     awsBucket: process.env.AWS_BUCKET_NAME
+     awsBucket: process.env.AWS_BUCKET_NAME,
+     email:process.env.EMAIL,
+     pass:process.env.PASS
 }

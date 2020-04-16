@@ -5,8 +5,10 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const multer = require("multer");
 const admin = require("../utils/fbadmin");
+const config = require('../config');
 var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
+const nodemailer = require('nodemailer');
 
 
 var storage = multer.memoryStorage({
@@ -32,7 +34,20 @@ const createUser = (req,res) => {
     newUser.password =   body.password;
     newUser.aadharUID =   body.aadharUID;
   
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: config.email,
+        pass: config.pass
+    }
+});
 
+let mailOptions = {
+    from: 'onbvnindia@gmail.com',
+    to: body.email,
+    subject: 'Account Created Successfully',
+    text: 'ONBVN-Our India Social Network'
+};
 
     const params = {
         bucket: process.env.FIREBASE_BUCKET_NAME,
@@ -64,7 +79,15 @@ const createUser = (req,res) => {
                             res.send('Could not create user')
                         } else{
                             console.log('User Created Successfully');
+                            transporter.sendMail(mailOptions, (err,data) => {
+                                if(err){
+                                    console.log('Error Sending Email:' + err)
+                                }else{
+                                    console.log('Email Sent Successfully' + data)
+                                }
+                            })
                             res.json(newUser);
+
                         }
                     })
                 })
