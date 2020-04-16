@@ -63,7 +63,7 @@ const CreatePost = (req,res) => {
     
 }
 
-//Get All Posts Of Particular Logged In User
+//Get All Posts Of Users Friends
 const GetAllPosts = async (req,res) => {
     try{
         await jwt.verify(req.token, config.secret , (err, authData) => {
@@ -85,8 +85,28 @@ const GetAllPosts = async (req,res) => {
     } catch(error){
         console.log(error);
     }
-  
+}
 
+//Get All Posts Of Logged In User
+const GetAllPostsOfUser = async (req,res) => {
+    try{
+        await jwt.verify(req.token, config.secret , (err, authData) => {
+            if(err){
+                console.log(err);
+            } else {
+                Post.find({user:authData.id}).exec((err,data) => {
+                    if(err){
+                        console.log(err)
+                    }else{
+                        res.json(data)
+                    }
+                })
+            }
+        });
+
+    } catch(error){
+        console.log(error);
+    }
 }
 
 //Get All Posts Of Particular User When Searched For Username
@@ -178,4 +198,4 @@ const DeletePost = async (req,res) => {
 
 
 
-module.exports = {CreatePost,GetAllPosts,GetAllPostsByUsername,EditPost,DeletePost,PostUpload};
+module.exports = {CreatePost,GetAllPosts,GetAllPostsByUsername,EditPost,DeletePost,PostUpload,GetAllPostsOfUser};
