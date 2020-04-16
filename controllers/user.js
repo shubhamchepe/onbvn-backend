@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const multer = require("multer");
 const admin = require("../utils/fbadmin");
-const config = require('../config');
 var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
