@@ -29,7 +29,7 @@ const GetChatLogs = async (req,res) => {
               console.log(err);
           } else{
             Chat.find().or([{FromUser: authData.username,ToUser: req.params.touser}, {FromUser: req.params.touser, ToUser: authData.username}])
-            .sort('-time').limit(1).exec((err, results) => {
+            .sort('-time').limit(1).exec((err, data) => {
                 if (err) {
                   console.log(err)
                 } else {
