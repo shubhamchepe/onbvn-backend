@@ -28,14 +28,14 @@ const GetChatLogs = async (req,res) => {
           if(err){
               console.log(err);
           } else{
-             Chat.aggregate([{$group: {"_id" : {"FromUser": "$FromUser"},"_id":{"ToUser": "$ToUser"}}}],(err,data) => {
-                if(err){
-                    console.log(err)
-                }else{
+            Chat.find().or([{FromUser: authData.username,ToUser: req.params.touser}, {FromUser: req.params.touser, ToUser: authData.username}])
+            .sort('-time').limit(1).exec((err, results) => {
+                if (err) {
+                  console.log(err)
+                } else {
                     console.log(data)
                 }
-           
-             })
+              });
           }
         });
     } catch(error){
