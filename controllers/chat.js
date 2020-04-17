@@ -21,9 +21,30 @@ const GetChats = async (req,res) => {
     }
 }
 
+//Get Chat Logs Of User
+const GetChatLogs = async (req,res) => {
+    try{
+        await jwt.verify(req.token, config.secret , (err, authData) => {
+          if(err){
+              console.log(err);
+          } else{
+             Chat.aggregate.group({_id: '$FromUser'}).exec((err,data) => {
+                 if(err){
+                     console.log(err)
+                 }else{
+                     console.log(data)
+                 }
+             })
+          }
+        });
+    } catch(error){
+         console.log(error);
+         
+    }
+}
 
 
 
 
 
-module.exports = {GetChats};
+module.exports = {GetChats,GetChatLogs};

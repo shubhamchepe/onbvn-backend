@@ -33,7 +33,7 @@ const {createNotification,
        GetActivityLog,
        DeleteUserNotifications,
        UpdateUserNotification} = require('./controllers/notification');    
-const {GetChats} = require('./controllers/chat');             
+const {GetChats,GetChatLogs} = require('./controllers/chat');             
 const {authenticateUser,verifyToken} = require('./controllers/auth'); 
 const connectDb = require('./utils/connectDb');     
 
@@ -140,7 +140,8 @@ app.post('/fbupload',upload.any(),ImageUploadFirebase);
 
 //Route To Fetch Chats Between Users
 app.get('/getchats/:touser', verifyToken,GetChats);
-
+//Route To Get Chat Logs
+app.get('/getchatlogs',verifyToken,GetChatLogs);
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
