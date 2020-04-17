@@ -33,7 +33,8 @@ const GetChatLogs = async (req,res) => {
                 if (err) {
                   console.log(err)
                 } else {
-                    console.log(data)
+                    res.json(data);
+                    console.log(data);
                 }
               });
           }
