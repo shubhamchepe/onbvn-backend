@@ -28,12 +28,13 @@ const GetChatLogs = async (req,res) => {
           if(err){
               console.log(err);
           } else{
-             Chat.aggregate.group({_id: '$FromUser'}).exec((err,data) => {
-                 if(err){
-                     console.log(err)
-                 }else{
-                     console.log(data)
-                 }
+             Chat.aggregate({$group: {"_id" : {"FromUser": "$FromUser"}}},(err,data) => {
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(data)
+                }
+           
              })
           }
         });
