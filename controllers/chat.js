@@ -58,7 +58,7 @@ const GetChatLogs = async (req,res) => {
                   {
                        "$project": { 
                           "_id": 0,
-                          "FromUser": "$FromUser",
+                          "FromUser": "$_id",
                           "message": 1,
                           "createdAt": 1
                       }
