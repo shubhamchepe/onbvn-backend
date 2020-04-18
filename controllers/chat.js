@@ -33,7 +33,7 @@ const GetChatLogs = async (req,res) => {
                   // Matching pipeline, similar to find
                   { 
                       "$match": { 
-                          "ToUser": authData.username
+                        "$or":[{"FromUser": authData.username},{"ToUser": authData.username}]
                       }
                   },
                   // Sorting pipeline
@@ -58,7 +58,7 @@ const GetChatLogs = async (req,res) => {
                   {
                        "$project": { 
                           "_id": 0,
-                          "FromUser": "$_id",
+                          "FromUser": "$FromUser",
                           "message": 1,
                           "createdAt": 1
                       }
@@ -80,8 +80,6 @@ const GetChatLogs = async (req,res) => {
          
     }
 }
-
-
 
 
 
