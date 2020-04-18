@@ -11,15 +11,19 @@ const ChatSchema = new Schema({
         type: String,
         required: true
     },
+    FromUserID:{
+       type: String,
+       required: true
+    },
     ToUser:{
         type: String,
         required: true
     },
-    date:{
+    ToUserID:{
         type: String,
         required: true
     },
-    time:{
+    createdAt:{
         type: String,
         required: true
     },

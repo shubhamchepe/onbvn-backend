@@ -28,15 +28,51 @@ const GetChatLogs = async (req,res) => {
           if(err){
               console.log(err);
           } else{
-            Chat.find().or([{FromUser: authData.username},{ToUser: authData.username}])
-            .sort('-time').limit(15).exec((err, data) => {
-                if (err) {
-                  console.log(err)
-                } else {
-                    res.json(data);
-                    console.log(data);
-                }
-              });
+            Chat.aggregate(
+              [
+                  // Matching pipeline, similar to find
+                  { 
+                      "$match": { 
+                          "ToUser": authData.username
+                      }
+                  },
+                  // Sorting pipeline
+                  { 
+                      "$sort": { 
+                          "createdAt": -1 
+                      } 
+                  },
+                  // Grouping pipeline
+                  {
+                      "$group": {
+                          "_id": "$FromUserID",
+                          "message": {
+                              "$first": "$message" 
+                          },
+                          "created": {
+                              "$first": "$createdAt" 
+                          }
+                      }
+                  },
+                  // Project pipeline, similar to select
+                  {
+                       "$project": { 
+                          "_id": 0,
+                          "FromUser": "$_id",
+                          "message": 1,
+                          "createdAt": 1
+                      }
+                  }
+              ],
+              function(err, messages) {
+                 // Result is an array of documents
+                 if (err) {
+                      console.log(err)
+                  } else {
+                      res.json(messages)
+                  }
+              }
+          );
           }
         });
     } catch(error){
