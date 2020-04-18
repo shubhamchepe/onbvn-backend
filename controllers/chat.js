@@ -49,7 +49,7 @@ const GetChatLogs = async (req,res) => {
                           "message": {
                               "$first": "$message" 
                           },
-                          "created": {
+                          "createdAt": {
                               "$first": "$createdAt" 
                           }
                       }
