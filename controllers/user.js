@@ -176,6 +176,7 @@ const getUserByFirstname = (req,res) => {
     });
 };
 
+
 //User Can Update Any Fields From This Route
 const UpdateFields = (req,res) => {
  jwt.verify(req.token, config.secret , (err, authData) => {
@@ -293,6 +294,7 @@ const Unfriend = async (req,res) => {
                             console.log(err)
                         } else{
                             console.log('Unfriended')
+                            res.json(data1)
                         }
                     })
                 }
