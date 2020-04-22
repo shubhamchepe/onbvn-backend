@@ -325,9 +325,9 @@ const VerifyOtp = async (req,res) => {
 const ValidateUserName = async (req,res) => {
     User.find({username:req.params.username}, (err,data) => {
         if(data.length !== 0){
-            return res.status(406).send({message: 'Username is already taken'})
+            return res.send({message: 'Username is already taken'})
         }else{
-            console.log(err)
+            return res.send({message: 'error occured validating username'})
         }
     })
 }
