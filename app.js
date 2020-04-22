@@ -20,7 +20,8 @@ const {getAllUsers,
        AcceptFriendReq,
        ImageUploadFirebase,
        UpdateDP,
-       Unfriend,GetOtp} = require('./controllers/user');
+       Unfriend,
+       GetOtp,VerifyOtp} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -88,6 +89,8 @@ app.get('/getAllUsers', getAllUsers);
 app.post('/createUser', upload.any(),createUser);
 //Get OTP For Client From Twilio
 app.get('/GetOtp/:mobile_number', GetOtp);
+//Verify OTP For Client From Twilio
+app.get('/VerifyOtp', VerifyOtp);
 //Route To Get User By Id
 app.get('/getUserById/:id', getUserById);
 //Route To Get User By Username

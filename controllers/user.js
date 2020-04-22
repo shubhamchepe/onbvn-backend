@@ -313,6 +313,15 @@ const GetOtp = async (req,res) => {
    })
 }
 
+const VerifyOtp = async (req,res) => {
+    client.verify.services(config.serviceID).verificationChecks.create({
+        to: `+91${req.query.mobile_number}`,
+        code: req.query.code
+    }).then((data) => {
+        res.status(200).send(data)
+    })
+}
+
 const ImageUploadFirebase = (req,res) => {
     // const params = {
     //     Bucket: config.awsBucket,
@@ -403,5 +412,6 @@ module.exports = {
     ImageUploadFirebase,
     UpdateDP,
     Unfriend,
-    GetOtp
+    GetOtp,
+    VerifyOtp
 };
