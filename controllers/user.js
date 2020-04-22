@@ -327,7 +327,7 @@ const ValidateUserName = async (req,res) => {
         if(data.length == 0){
             return res.send({message: 'Username Available'})
         }else{
-            return res.send({message: 'error occured validating username'})
+            return res.send({message: 'Username already exists'})
         }
     })
 }
