@@ -322,6 +322,16 @@ const VerifyOtp = async (req,res) => {
     })
 }
 
+const ValidateUserName = async (req,res) => {
+    User.find({username:req.params.username}, (err,data) => {
+        if(data){
+            console.log(data)
+        }else{
+            console.log(err)
+        }
+    })
+}
+
 const ImageUploadFirebase = (req,res) => {
     // const params = {
     //     Bucket: config.awsBucket,
@@ -413,5 +423,6 @@ module.exports = {
     UpdateDP,
     Unfriend,
     GetOtp,
-    VerifyOtp
+    VerifyOtp,
+    ValidateUserName
 };

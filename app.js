@@ -21,7 +21,9 @@ const {getAllUsers,
        ImageUploadFirebase,
        UpdateDP,
        Unfriend,
-       GetOtp,VerifyOtp} = require('./controllers/user');
+       GetOtp,
+       VerifyOtp,
+       ValidateUserName} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -85,6 +87,8 @@ app.get('/', (req, res) => res.send('Welcome to onbvn backend'));
 
 //Route To Get All Users
 app.get('/getAllUsers', getAllUsers);
+//Validate Username
+app.get('/ValidateUsername/:username', ValidateUserName);
 //Route To Create User
 app.post('/createUser', upload.any(),createUser);
 //Get OTP For Client From Twilio
