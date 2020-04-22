@@ -315,7 +315,7 @@ const GetOtp = async (req,res) => {
 
 const VerifyOtp = async (req,res) => {
     client.verify.services(config.serviceID).verificationChecks.create({
-        to: `+91${req.query.mobile_number}`,
+        to: `+91${req.query.mobilenumber}`,
         code: req.query.code
     }).then((data) => {
         res.status(200).send(data)
