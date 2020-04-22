@@ -33,6 +33,7 @@ const createUser = (req,res) => {
     newUser.email =   body.email;
     newUser.password =   body.password;
     newUser.aadharUID =   body.aadharUID;
+    newUser.UserAccountStatus = 'pending'
   
 let transporter = nodemailer.createTransport({
     service: 'gmail',

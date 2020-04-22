@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+    UserAccountStatus: {
+        type: String
+    },
     firstname: {
         type: String,
         required: true

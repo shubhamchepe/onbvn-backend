@@ -6,28 +6,30 @@ const authenticateUser = async (req,res) => {
     const {username, password} = req.body;
     try{
       const user = await User.findOne({username: username});
-      if(password == user.password){
-          const token = jwt.sign({
-              id: user._id,
-              username: user.username,
-              completeUser: user
-          }, config.secret);
-          res.status(200).json({
-              message: 'Login Success',
-              token: token,
-              id: user._id,
-              user: user
-          });
+      if(user.UserAccountStatus == 'pending'){
+          return res.send({message: 'your account is under review'})
       }else{
-        res.status(401).json({
-            error: true,
-            message: 'Wrong credentials entered...please try again'
-        }) 
+        if(password == user.password){
+            const token = jwt.sign({
+                id: user._id,
+                username: user.username,
+                completeUser: user
+            }, config.secret);
+            res.status(200).json({
+                message: 'Login Success',
+                token: token,
+                id: user._id,
+                user: user
+            });
+        }else{
+          res.send({
+              message: 'Wrong credentials entered...please try again'
+          }) 
+        }
       }
     } catch(error){
-         res.status(401).json({
-             error: true,
-             message: 'Wrong credentials entered...please try again'
+         res.send({
+             message: 'Something went wrong'
          })
     }
 };
