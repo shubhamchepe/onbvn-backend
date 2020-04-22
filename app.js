@@ -23,7 +23,10 @@ const {getAllUsers,
        Unfriend,
        GetOtp,
        VerifyOtp,
-       ValidateUserName} = require('./controllers/user');
+       ValidateUserName,
+       ValidateEmail,
+       ValidatePhone,
+       ValidateAadhar} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -89,6 +92,12 @@ app.get('/', (req, res) => res.send('Welcome to onbvn backend'));
 app.get('/getAllUsers', getAllUsers);
 //Validate Username
 app.get('/ValidateUsername/:username', ValidateUserName);
+//Validate Email
+app.get('/ValidateEmail/:email', ValidateEmail);
+//Validate Phone
+app.get('/ValidateMobile/:mobile', ValidatePhone);
+//Validate AadharUID
+app.get('/ValidateAadhar/:aadhar', ValidateAadhar);
 //Route To Create User
 app.post('/createUser', upload.any(),createUser);
 //Get OTP For Client From Twilio
