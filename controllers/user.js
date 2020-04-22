@@ -325,7 +325,7 @@ const VerifyOtp = async (req,res) => {
 const ValidateUserName = async (req,res) => {
     User.find({username:req.params.username}, (err,data) => {
         if(data.length == 0){
-            return res.status(200)
+            return res.send({message: 'Username available'})
         }else{
             return res.send({message: 'Username already exists'})
         }
@@ -335,7 +335,7 @@ const ValidateUserName = async (req,res) => {
 const ValidateEmail = async (req,res) => {
     User.find({email:req.params.email}, (err,data) => {
         if(data.length == 0){
-            return res.status(200)
+            return res.send({message: 'email: OK'})
         }else{
             return res.send({message: 'Email already associated with a user'})
         }
@@ -345,7 +345,7 @@ const ValidateEmail = async (req,res) => {
 const ValidatePhone = async (req,res) => {
     User.find({mobileNumber:req.params.mobile}, (err,data) => {
         if(data.length == 0){
-            return res.status(200)
+            return res.send({message: 'number: OK'})
         }else{
             return res.send({message: 'Number already associated with a user'})
         }
@@ -355,7 +355,7 @@ const ValidatePhone = async (req,res) => {
 const ValidateAadhar = async (req,res) => {
     User.find({aadharUID:req.params.aadhar}, (err,data) => {
         if(data.length == 0){
-            return res.status(200)
+            return res.send({message: 'aadhaar: OK'})
         }else{
             return res.send({message: 'Aadhaar already associated with a user'})
         }
