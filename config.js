@@ -7,5 +7,9 @@ module.exports = {
      awsSecret: process.env.AWS_SECRET,
      awsBucket: process.env.AWS_BUCKET_NAME,
      email:process.env.EMAIL,
-     pass:process.env.PASS
+     pass:process.env.PASS,
+     //Twilio
+     serviceID:process.env.serviceID,
+     accountSID:process.env.accountSID,
+     authToken:process.env.authToken
 }

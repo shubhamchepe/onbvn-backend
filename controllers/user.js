@@ -8,6 +8,7 @@ const admin = require("../utils/fbadmin");
 var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
+const client = require('twilio')(config.accountSID,config.authToken)
 
 
 var storage = multer.memoryStorage({
@@ -303,6 +304,15 @@ const Unfriend = async (req,res) => {
     });
 }
 
+const GetOtp = async (req,res) => {
+   client.verify.services(config.serviceID).verifications.create({
+       to: `+91${req.params.mobile_number}`,
+       channel:'sms'
+   }).then((data) => {
+       res.status(200).send(data)
+   })
+}
+
 const ImageUploadFirebase = (req,res) => {
     // const params = {
     //     Bucket: config.awsBucket,
@@ -392,5 +402,6 @@ module.exports = {
     upload,
     ImageUploadFirebase,
     UpdateDP,
-    Unfriend
+    Unfriend,
+    GetOtp
 };
