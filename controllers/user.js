@@ -9,6 +9,7 @@ var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
 const client = require('twilio')(config.accountSID,config.authToken)
+const hbs = require('nodemailer-express-handlebars');
 
 
 var storage = multer.memoryStorage({
@@ -47,8 +48,14 @@ let mailOptions = {
     from: 'onbvnindia@gmail.com',
     to: body.email,
     subject: 'Account Created Successfully',
-    text: 'ONBVN-Our India Social Network'
+    text: 'ONBVN-Our India Social Network',
+    template: 'accountunderrev'
 };
+
+transporter.use('compile', hbs({
+    viewEngine: 'express-handlebars',
+    viewPath: '../views/'
+}));
 
     const params = {
         bucket: process.env.FIREBASE_BUCKET_NAME,
