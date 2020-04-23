@@ -21,7 +21,6 @@ var storage = multer.memoryStorage({
 
 var upload = multer()
 
-
 //Creating User
 const createUser = (req,res) => {
     var newUser = new User();
@@ -45,17 +44,15 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-  var htmltemp = fs.readFile('../views/email1', 'utf8', (data) => {
-      return data
-  })
-  console.log(htmltemp)
+const htmltemplate = fs.readFile('../views/email1.html', 'utf8')
+console.log(htmltemplate);
 
 let mailOptions = {
     from: 'onbvnindia@gmail.com',
     to: body.email,
     subject: 'Account Created Successfully',
     text: 'ONBVN-Our India Social Network',
-    html: htmltemp
+    html: {path: '../views/email1.html'}
 };
 
 
