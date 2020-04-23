@@ -11,7 +11,6 @@ const nodemailer = require('nodemailer');
 const client = require('twilio')(config.accountSID,config.authToken)
 const hbs = require('nodemailer-express-handlebars');
 
-
 var storage = multer.memoryStorage({
     destination: function(req, file, callback) {
         callback(null, '');
@@ -52,10 +51,17 @@ let mailOptions = {
     template: 'accountunderrev'
 };
 
-transporter.use('compile', hbs({
-    viewEngine: 'express-handlebars',
-    viewPath: '../views/'
-}));
+transporter.use('compile', hbs(handlebarOptions));
+
+const handlebarOptions = {
+    viewEngine: {
+      extName: '.hbs',
+      partialsDir: '../views/',
+      layoutsDir: '../views/',
+    },
+    viewPath: '../views/',
+    extName: '.hbs',
+  };
 
     const params = {
         bucket: process.env.FIREBASE_BUCKET_NAME,
