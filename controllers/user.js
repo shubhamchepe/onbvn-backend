@@ -44,14 +44,13 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const htmltemplate = fs.readFile('../views/email1.html', 'utf8', (err,data) => {
+fs.readFile('../views/email1.html', 'utf8', (err,data) => {
     if(err){
         return err
     }else{
-        return data
+        console.log(data);
     }
 })
-console.log(htmltemplate);
 
 let mailOptions = {
     from: 'onbvnindia@gmail.com',
