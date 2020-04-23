@@ -57,6 +57,7 @@ const handlebarOptions = {
       extName: '.hbs',
       partialsDir: '../views/',
       layoutsDir: '../views/',
+      partialsDir: '../views/'
     },
     viewPath: '../views/',
     extName: '.hbs',
