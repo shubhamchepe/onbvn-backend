@@ -57,7 +57,8 @@ const handlebarOptions = {
       extName: '.hbs',
       partialsDir: '../views/',
       layoutsDir: '../views/',
-      partialsDir: '../views/'
+      partialsDir: '../views/',
+      defaultLayout: 'accountunderrev'
     },
     viewPath: '../views/',
     extName: '.hbs',
