@@ -51,8 +51,6 @@ let mailOptions = {
     template: 'accountunderrev'
 };
 
-transporter.use('compile', hbs(handlebarOptions));
-
 const handlebarOptions = {
     viewEngine: {
       extName: '.hbs',
@@ -62,6 +60,10 @@ const handlebarOptions = {
     viewPath: '../views/',
     extName: '.hbs',
   };
+
+transporter.use('compile', hbs(handlebarOptions));
+
+
 
     const params = {
         bucket: process.env.FIREBASE_BUCKET_NAME,
