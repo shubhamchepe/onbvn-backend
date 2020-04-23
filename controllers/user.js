@@ -10,6 +10,7 @@ const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
 const client = require('twilio')(config.accountSID,config.authToken)
 const hbs = require('express-handlebars');
+var fs = require('fs')
 
 
 var storage = multer.memoryStorage({
@@ -44,28 +45,21 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+ let HTMLFILE = fs.readFile('../views/email1.html', 'utf8', (err,data) => {
+    if(err){
+        return err
+    }else{
+        return data
+    }
+})
+
 let mailOptions = {
     from: 'onbvnindia@gmail.com',
     to: body.email,
     subject: 'Account Created Successfully',
     text: 'ONBVN-Our India Social Network',
-    template: 'accountunderrev'
+    html: HTMLFILE
 };
-
-const handlebarOptions = {
-    viewEngine: {
-        extname: '.hbs',
-        layoutsDir: '../views/email1',
-        defaultLayout : 'accountunderrev',
-        partialsDir : '../views/particles'
-    },
-    viewPath: '../views/email1',
-    extName: '.hbs'
-
-  };
-
-transporter.use('compile', hbs(handlebarOptions));
-
 
 
     const params = {
