@@ -9,7 +9,9 @@ var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
 const client = require('twilio')(config.accountSID,config.authToken)
-const hbs = require('nodemailer-express-handlebars');
+const hbs = require('express-handlebars');
+app.engine('.hbs', hbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 var storage = multer.memoryStorage({
     destination: function(req, file, callback) {
