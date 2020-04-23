@@ -45,14 +45,17 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-  
+  var htmltemp = fs.readFile('../views/email1', 'utf8', (data) => {
+      return data
+  })
+  console.log(htmltemp)
 
 let mailOptions = {
     from: 'onbvnindia@gmail.com',
     to: body.email,
     subject: 'Account Created Successfully',
     text: 'ONBVN-Our India Social Network',
-    html: 'https://raw.githubusercontent.com/shubhamchepe/email1/master/email1.html'
+    html: htmltemp
 };
 
 
