@@ -53,11 +53,15 @@ let mailOptions = {
 };
 
 const handlebarOptions = {
-    extName:'.hbs', /* or '.handlebars' */
-    viewPath:__dirname+'../views/',
-    layoutsDir:__dirname+'/view/',
-    defaultLayout:'accountunderrev',
-    partialsDir:__dirname+'/views/'
+    viewEngine: {
+        extname: '.hbs',
+        layoutsDir: '../views/email1',
+        defaultLayout : 'accountunderrev',
+        partialsDir : '../views/particles'
+    },
+    viewPath: '../views/email1',
+    extName: '.hbs'
+
   };
 
 transporter.use('compile', hbs(handlebarOptions));
