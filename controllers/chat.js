@@ -62,7 +62,9 @@ const GetChatLogs = async (req,res) => {
                   {
                       "$group": {
                           "_id": "$FromUser",
-                          "ToUserID": "$ToUser",
+                          "ToUser": {
+                             "$first": "$ToUser"
+                          },
                           "message": {
                               "$first": "$message" 
                           },
@@ -79,7 +81,7 @@ const GetChatLogs = async (req,res) => {
                        "$project": { 
                           "_id": 0,
                           "FromUser": "$_id",
-                          "ToUser": "$ToUserID",
+                          "ToUser": "$ToUser",
                           "message": 1,
                           "createdAt": 1,
                           "viewed": 1
