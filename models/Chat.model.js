@@ -34,6 +34,9 @@ const ChatSchema = new Schema({
     type:{
         type: String,
         required: true
+    },
+    viewed:{
+        type: Boolean
     }
   });
   

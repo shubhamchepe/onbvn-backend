@@ -21,6 +21,22 @@ const GetChats = async (req,res) => {
     }
 }
 
+//Modify viewed status
+// const ModifyViewd = async (req,res) => {
+//     try{
+//         await jwt.verify(req.token, config.secret , (err, authData) => {
+//           if(err){
+//               console.log(err);
+//           } else{
+//              Chat.findByIdAndUpdate()
+//           }
+//         });
+//     } catch(error){
+//          console.log(error);
+         
+//     }
+// }
+
 //Get Chat Logs Of User
 const GetChatLogs = async (req,res) => {
     try{
@@ -60,7 +76,8 @@ const GetChatLogs = async (req,res) => {
                           "_id": 0,
                           "FromUser": "$_id",
                           "message": 1,
-                          "createdAt": 1
+                          "createdAt": 1,
+                          "viewed": 1
                       }
                   }
               ],
@@ -80,6 +97,8 @@ const GetChatLogs = async (req,res) => {
          
     }
 }
+
+
 
 
 
