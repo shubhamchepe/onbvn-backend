@@ -83,8 +83,7 @@ const GetChatLogs = async (req,res) => {
                           "FromUser": "$_id",
                           "ToUser": "$ToUser",
                           "message": 1,
-                          "createdAt": 1,
-                          "viewed": 1
+                          "createdAt": 1
                       }
                   }
               ],
