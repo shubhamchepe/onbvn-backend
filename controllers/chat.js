@@ -49,13 +49,13 @@ const GetChatLogs = async (req,res) => {
                   // Matching pipeline, similar to find
                   { 
                       "$match": { 
-                        "FromUser": authData.username
+                        "$or":[{"FromUser": authData.username},{"ToUser": authData.username}]
                       }
                   },
                   // Sorting pipeline
                   { 
                       "$sort": { 
-                          "createdAt": 1 
+                          "createdAt": -1 
                       } 
                   },
                   // Grouping pipeline
