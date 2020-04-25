@@ -61,7 +61,7 @@ const GetChatLogs = async (req,res) => {
                   // Grouping pipeline
                   {
                       "$group": {
-                          "_id": {"FromUser":"$FromUser","ToUser":"$ToUser","message":"$message","createdAt":{"$last":"$createdAt"},"viewed":"$viewed"}
+                          "_id": {"FromUser":"$FromUser","ToUser":"$ToUser","message":"$message","createdAt":"$createdAt","viewed":"$viewed"}
                         //   "ToUser": {
                         //      "$first": "$ToUser"
                         //   },
