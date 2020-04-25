@@ -72,8 +72,11 @@ const GetChatLogs = async (req,res) => {
                               "$first": "$message" 
                           },
                           "createdAt": {
-                              "$first": "$createdAt" 
-                          }
+                              "$last": "$createdAt" 
+                          },
+                          "viewed": {
+                            "$first": "$viewed" 
+                        }
                       }
                   },
                   // Project pipeline, similar to select
