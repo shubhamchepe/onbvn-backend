@@ -55,8 +55,11 @@ const GetChatLogs = async (req,res) => {
                   // Sorting pipeline
                   { 
                       "$sort": { 
-                          "$createdAt": -1 
+                          "createdAt": -1 
                       } 
+                  },
+                  {
+                      "$limit": 1
                   },
                   // Grouping pipeline
                   {
