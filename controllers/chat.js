@@ -61,36 +61,36 @@ const GetChatLogs = async (req,res) => {
                   // Grouping pipeline
                   {
                       "$group": {
-                          "_id": "$FromUser",
-                          "ToUser": {
-                             "$first": "$ToUser"
-                          },
-                          "ToUserID": {
-                            "$first": "$ToUserID"
-                         },
-                          "message": {
-                              "$first": "$message" 
-                          },
-                          "createdAt": {
-                              "$last": "$createdAt" 
-                          },
-                          "viewed": {
-                            "$first": "$viewed" 
-                        }
+                          "_id": {"FromUser":"$FromUser","ToUser":"$ToUser","message":"$message","createdAt":{"$last":"$createdAt"},"viewed":"$viewed"}
+                        //   "ToUser": {
+                        //      "$first": "$ToUser"
+                        //   },
+                        //   "ToUserID": {
+                        //     "$first": "$ToUserID"
+                        //  },
+                        //   "message": {
+                        //       "$first": "$message" 
+                        //   },
+                        //   "createdAt": {
+                        //       "$last": "$createdAt" 
+                        //   },
+                        //   "viewed": {
+                        //     "$first": "$viewed" 
+                        // }
                       }
                   },
                   // Project pipeline, similar to select
-                  {
-                       "$project": { 
-                          "_id": 0,
-                          "FromUser": "$_id",
-                          "ToUser": "$ToUser",
-                          "ToUserID": "$ToUserID",
-                          "message": "$message",
-                          "createdAt": "$createdAt",
-                          "viewed": "$viewed"
-                      }
-                  }
+                //   {
+                //        "$project": { 
+                //           "_id": 0,
+                //           "FromUser": "$_id",
+                //           "ToUser": "$ToUser",
+                //           "ToUserID": "$ToUserID",
+                //           "message": "$message",
+                //           "createdAt": "$createdAt",
+                //           "viewed": "$viewed"
+                //       }
+                //   }
               ],
               function(err, messages) {
                  // Result is an array of documents
