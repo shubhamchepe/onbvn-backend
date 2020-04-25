@@ -62,26 +62,22 @@ const GetChatLogs = async (req,res) => {
                   {
                       "$group": {
                           "_id" : "$FromUser",
-                          "ToUser":"$ToUser",
-                          "message":"$message",
-                          "createdAt":"$createdAt",
-                          "viewed":"$viewed"
                         
-                        //   "ToUser": {
-                        //      "$first": "$ToUser"
-                        //   },
-                        //   "ToUserID": {
-                        //     "$first": "$ToUserID"
-                        //  },
-                        //   "message": {
-                        //       "$first": "$message" 
-                        //   },
-                        //   "createdAt": {
-                        //       "$last": "$createdAt" 
-                        //   },
-                        //   "viewed": {
-                        //     "$first": "$viewed" 
-                        // }
+                          "ToUser": {
+                             "$first": "$ToUser"
+                          },
+                          "ToUserID": {
+                            "$first": "$ToUserID"
+                         },
+                          "message": {
+                              "$first": "$message" 
+                          },
+                          "createdAt": {
+                              "$last": "$createdAt" 
+                          },
+                          "viewed": {
+                            "$first": "$viewed" 
+                        }
                       }
                   },
                   // Project pipeline, similar to select
