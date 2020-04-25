@@ -53,11 +53,11 @@ const GetChatLogs = async (req,res) => {
                       }
                   },
                   // Sorting pipeline
-                  { 
-                      "$sort": { 
-                          "createdAt": -1 
-                      } 
-                  },
+                //   { 
+                //       "$sort": { 
+                //           "createdAt": -1 
+                //       } 
+                //   },
                   // Grouping pipeline
                   {
                       "$group": {
