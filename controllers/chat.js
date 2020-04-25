@@ -44,56 +44,13 @@ const GetChatLogs = async (req,res) => {
           if(err){
               console.log(err);
           } else{
-            Chat.aggregate(
-              [
-                  // Matching pipeline, similar to find
-                  { 
-                      "$match": { 
-                        "$or":[{"FromUser": authData.username},{"ToUser": authData.username}]
-                      }
-                  },
-                  // Sorting pipeline
-                  { 
-                      "$sort": { 
-                          "createdAt": -1 
-                      } 
-                  },
-                  // Grouping pipeline
-                  {
-                      "$group": {
-                          "_id" : "$FromUser",
-                          "ToUser": "$ToUser",
-                          "ToUserID": "$ToUserID",
-                          "message":"$message",
-                          "createdAt": {
-                              "$last": "$createdAt" 
-                          },
-                          "viewed":"$viewed" 
-                      
-                      }
-                  },
-                  // Project pipeline, similar to select
-                //   {
-                //        "$project": { 
-                //           "_id": 0,
-                //           "FromUser": "$_id",
-                //           "ToUser": "$ToUser",
-                //           "ToUserID": "$ToUserID",
-                //           "message": "$message",
-                //           "createdAt": "$createdAt",
-                //           "viewed": "$viewed"
-                //       }
-                //   }
-              ],
-              function(err, messages) {
-                 // Result is an array of documents
-                 if (err) {
-                      console.log(err)
-                  } else {
-                      res.json(messages)
-                  }
-              }
-          );
+            Chat.find().or([{FromUser:authData.username},{ToUser:authData.username}]).sort({createdAt:-1}).then((err,data) =>{
+                if(err){
+                    return res.json(err)
+                }else{
+                    res.json(data)
+                }
+            })
           }
         });
     } catch(error){
