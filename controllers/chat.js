@@ -38,24 +38,67 @@ const GetChats = async (req,res) => {
 // }
 
 //Get Chat Logs Of User
+//Get Chat Logs Of User
 const GetChatLogs = async (req,res) => {
-    try{
-        await jwt.verify(req.token, config.secret , (err, authData) => {
-          if(err){
-              console.log(err);
-          } else{
-            Chat.find().or([{FromUser:authData.username},{ToUser:authData.username}]).sort({createdAt:-1}).then((err,data) =>{
-                if(err){
-                    return res.json(err)
-                }else{
-                    res.json(data)
+    try {
+        await jwt.verify(req.token, config.secret, (err, authData) => {
+            Chat.aggregate(
+                [
+                    // Matching pipeline, similar to find
+                    {
+                        "$match": {
+                            "$or":[{"FromUser": authData.username},{"ToUser": authData.username}]
+                        }
+                    },
+                    // Sorting pipeline
+                    {
+                        "$sort": {
+                            "createdAt": -1
+                        }
+                    },
+                    // Grouping pipeline
+                    {
+                        "$group": {
+                            "_id" : {
+                                $cond: [
+                                    {
+                                        $gt: [
+                                            { $substr: ["$ToUser", 0, 1]},
+                                            { $substr: ["$FromUser", 0, 1]}
+                                        ]
+                                    },
+                                    {$concat:["$ToUser"," and ","$FromUser"]},
+                                    {$concat:["$FromUser"," and ","$ToUser"]}
+                                ]
+                            },
+                            "message": { $first: "$$ROOT" }
+                        }
+                    },
+                    // Project pipeline, similar to select
+                    //   {
+                    //        "$project": {
+                    //           "_id": 0,
+                    //           "FromUser": "$_id",
+                    //           "ToUser": "$ToUser",
+                    //           "ToUserID": "$ToUserID",
+                    //           "message": "$message",
+                    //           "createdAt": "$createdAt",
+                    //           "viewed": "$viewed"
+                    //       }
+                    //   }
+                ],
+                function(err, messages) {
+                    // Result is an array of documents
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.json(messages)
+                    }
                 }
-            })
-          }
+            );
         });
-    } catch(error){
-         console.log(error);
-         
+    } catch (error) {
+        console.log(error);
     }
 }
 
