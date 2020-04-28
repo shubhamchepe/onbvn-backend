@@ -22,22 +22,26 @@ const GetChats = async (req,res) => {
 }
 
 //Modify viewed status
-// const ModifyViewd = async (req,res) => {
-//     try{
-//         await jwt.verify(req.token, config.secret , (err, authData) => {
-//           if(err){
-//               console.log(err);
-//           } else{
-//              Chat.findByIdAndUpdate()
-//           }
-//         });
-//     } catch(error){
-//          console.log(error);
+const ModifyViewd = async (req,res) => {
+    try{
+        await jwt.verify(req.token, config.secret , (err, authData) => {
+          if(err){
+              console.log(err);
+          } else{
+             Chat.findByIdAndUpdate({_id:req.params.id},{
+                 viewed:true
+             }).then((data) => {
+                 res.json(data)
+             })
+          }
+        });
+    } catch(error){
+         console.log(error);
          
-//     }
-// }
+    }
+}
 
-//Get Chat Logs Of User
+
 //Get Chat Logs Of User
 const GetChatLogs = async (req,res) => {
     try {
@@ -106,4 +110,4 @@ const GetChatLogs = async (req,res) => {
 
 
 
-module.exports = {GetChats,GetChatLogs};
+module.exports = {GetChats,GetChatLogs,ModifyViewd};
