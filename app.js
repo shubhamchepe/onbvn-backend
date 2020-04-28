@@ -162,7 +162,7 @@ app.get('/getchats/:touser', verifyToken,GetChats);
 //Route To Get Chat Logs
 app.get('/getchatlogs',verifyToken,GetChatLogs);
 //Modify Viewed status
-app.post('/ModifyStatus/:id',verifyToken,ModifyViewd);
+app.post('/ModifyStatus/:id',ModifyViewd);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

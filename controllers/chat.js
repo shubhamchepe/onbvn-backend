@@ -24,22 +24,15 @@ const GetChats = async (req,res) => {
 //Modify viewed status
 const ModifyViewd = async (req,res) => {
     try{
-        console.log("updating status")
-         jwt.verify(req.token, config.secret , (err, authData) => {
-          if(err){
-              console.log(err);
-          } else{
-             Chat.findByIdAndUpdate({_id:req.params.id},{
-                 viewed:true
-             }).exec((err,data) => {
-                 if(err){
-                     console.log(err)
-                 }else{
-                     res.json(data)
-                 }
-             })
-          }
-        });
+        Chat.findByIdAndUpdate({_id:req.params.id},{
+            viewed:true
+        }).exec((err,data) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.json(data)
+            }
+        })
     } catch(error){
          console.log(error);
          
