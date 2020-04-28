@@ -24,6 +24,7 @@ const GetChats = async (req,res) => {
 //Modify viewed status
 const ModifyViewd = async (req,res) => {
     try{
+        console.log("updating status")
          jwt.verify(req.token, config.secret , (err, authData) => {
           if(err){
               console.log(err);
