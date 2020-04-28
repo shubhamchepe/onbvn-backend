@@ -30,8 +30,12 @@ const ModifyViewd = async (req,res) => {
           } else{
              Chat.findByIdAndUpdate({_id:req.params.id},{
                  viewed:true
-             }).then((data) => {
-                 res.json(data)
+             }).exec((err,data) => {
+                 if(err){
+                     console.log(err)
+                 }else{
+                     res.json(data)
+                 }
              })
           }
         });
