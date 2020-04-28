@@ -36,7 +36,7 @@ const authenticateUser = async (req,res) => {
 
 verifyToken = (req,res,next) => {
     const bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader);
+    console.log('Undefined from Auth.js' + bearerHeader);
     if(typeof bearerHeader !== 'undefined'){
        const bearer = bearerHeader.split(' ');
        const bearerToken = bearer[1];
