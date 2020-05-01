@@ -123,4 +123,4 @@ const GetChatLogs = async (req,res) => {
 
 
 
-module.exports = {GetChats,GetChatLogs,ModifyViewd};
+module.exports = {GetChats,GetChatLogs,ModifyViewd,ClearChatCollection};
