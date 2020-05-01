@@ -24,7 +24,7 @@ const GetChats = async (req,res) => {
 //Modify viewed status
 const ModifyViewd = async (req,res) => {
     try{
-        Chat.findByIdAndUpdate({_id:req.params.id},{
+        Chat.findByIdAndUpdate({underscoreID:req.params.id},{
             viewed:true
         }).exec((err,data) => {
             if(err){
