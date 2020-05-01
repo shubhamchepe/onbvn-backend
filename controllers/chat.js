@@ -39,6 +39,21 @@ const ModifyViewd = async (req,res) => {
     }
 }
 
+//Clear Chat Collection
+const ClearChatCollection = async (req,res) => {
+    try{
+        Chat.remove().exec((err,data) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.json(data)
+            }
+        })
+    } catch(error){
+         console.log(error);
+         
+    }
+}
 
 //Get Chat Logs Of User
 const GetChatLogs = async (req,res) => {

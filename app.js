@@ -40,7 +40,7 @@ const {createNotification,
        GetActivityLog,
        DeleteUserNotifications,
        UpdateUserNotification} = require('./controllers/notification');    
-const {GetChats,GetChatLogs,ModifyViewd} = require('./controllers/chat');             
+const {GetChats,GetChatLogs,ModifyViewd,ClearChatCollection} = require('./controllers/chat');             
 const {authenticateUser,verifyToken} = require('./controllers/auth'); 
 const connectDb = require('./utils/connectDb');     
 
@@ -163,6 +163,8 @@ app.get('/getchats/:touser', verifyToken,GetChats);
 app.get('/getchatlogs',verifyToken,GetChatLogs);
 //Modify Viewed status
 app.post('/ModifyStatus/:id',ModifyViewd);
+//Clear Chat Collection
+app.get('/DelETe_Chhats',ClearChatCollection)
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

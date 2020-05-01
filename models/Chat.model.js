@@ -37,8 +37,11 @@ const ChatSchema = new Schema({
     },
     viewed:{
         type: Boolean
+    },
+    underscoreID:{
+        type: mongoose.Types.ObjectId
     }
-  });
+  }, { autoIndex: false });
   
 
 module.exports = mongoose.model('Chat',ChatSchema);
