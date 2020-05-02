@@ -15,6 +15,9 @@ const ChatSchema = new Schema({
        type: String,
        required: true
     },
+    FromUserDP:{
+        type: String,
+     },
     ToUser:{
         type: String,
         required: true
