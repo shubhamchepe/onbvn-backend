@@ -33,6 +33,7 @@ const CreatePost = (req,res) => {
                 newPost.postImage = req.body.PostImage;
                 newPost.user = authData.id;
                 newPost.name= authData.username;
+                newPost.avatar = authData.user.profilePicture;
                 newPost.date;
 
                         newPost.save(async (err,data) => {
