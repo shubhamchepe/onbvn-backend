@@ -26,6 +26,7 @@ const CreatePost = (req,res) => {
                 console.log(err);
             } else {
                 console.log('Posting...');
+                console.log(authData)
                 var newPost = new Post();
                  console.log(req.body.PostCaption);
                  
