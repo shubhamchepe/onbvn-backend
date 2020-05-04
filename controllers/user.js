@@ -113,6 +113,17 @@ let mailOptions = {
     
 };
 
+//Getting All Pending Users
+const getPendingUsers = (req,res) => {
+    User.find({UserAccountStatus: 'pending'})
+    .exec((err,users) => {
+        if(err){
+            res.send('error occured getting pending users')
+        } else{
+            res.json(users)
+        }
+    })
+};
 
 //Getting All Users
 const getAllUsers = (req,res) => {
@@ -463,5 +474,6 @@ module.exports = {
     ValidateUserName,
     ValidateEmail,
     ValidatePhone,
-    ValidateAadhar
+    ValidateAadhar,
+    getPendingUsers
 };
