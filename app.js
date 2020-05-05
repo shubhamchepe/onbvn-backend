@@ -27,7 +27,8 @@ const {getAllUsers,
        ValidateEmail,
        ValidatePhone,
        ValidateAadhar,
-       getPendingUsers} = require('./controllers/user');
+       getPendingUsers,
+       AcceptNewUser} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -120,9 +121,12 @@ app.post('/UpdateDP', upload.any(),verifyToken,UpdateDP);
 //Route To Unfriend
 app.post('/Unfriend',verifyToken,Unfriend);
 //Delete This Route
-app.get('/GetId', verifyToken,CheckIfFriends)
+app.get('/GetId', verifyToken,CheckIfFriends);
 //Get Pending Users
-app.get('/getPendingusers',getPendingUsers)
+app.get('/getPendingusers',getPendingUsers);
+//Accept New User
+app.post('/AcceptNewUser', AcceptNewUser);
+
 
 
 

@@ -12,6 +12,7 @@ const client = require('twilio')(config.accountSID,config.authToken)
 const hbs = require('express-handlebars');
 var fs = require('fs')
 const {emailtemplate} = require('../views/email');
+const {successTemplate} = require('../views/success');
 
 
 var storage = multer.memoryStorage({
@@ -120,6 +121,46 @@ const getPendingUsers = (req,res) => {
         if(err){
             res.send('error occured getting pending users')
         } else{
+            res.json(users)
+        }
+    })
+};
+
+//Accept New User
+const AcceptNewUser = (req,res) => {
+    User.findByIdAndUpdate({_id: req.params.id},{
+        UserAccountStatus: 'approved',
+        city:req.body.city,
+        state:req.body.state
+    })
+    .exec((err,users) => {
+        if(err){
+            res.send('error occured getting pending users')
+        } else{
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: config.email,
+                    pass: config.pass
+                }
+            });
+            
+            
+            let mailOptions = {
+                from: 'onbvnindia@gmail.com',
+                to: body.email,
+                subject: 'Your Account Account Verified, Now You Can Login Into The App',
+                text: 'ONBVN-Our India Social Network',
+                html: successTemplate
+            };
+
+            transporter.sendMail(mailOptions, (err,data) => {
+                if(err){
+                    console.log('Error Sending Email:' + err)
+                }else{
+                    console.log('Email Sent Successfully' + data)
+                }
+            })
             res.json(users)
         }
     })
@@ -475,5 +516,6 @@ module.exports = {
     ValidateEmail,
     ValidatePhone,
     ValidateAadhar,
-    getPendingUsers
+    getPendingUsers,
+    AcceptNewUser
 };

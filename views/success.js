@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+var successTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -122,10 +122,10 @@
 <td style="word-break: break-word; vertical-align: top;" valign="top">
 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color:#FFFFFF"><![endif]-->
 <div style="background-color:transparent;">
-<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #464646;">
-<div style="border-collapse: collapse;display: table;width: 100%;background-color:#464646;">
-<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#464646"><![endif]-->
-<!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#464646;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:35px; padding-bottom:35px;"><![endif]-->
+<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #1ac86b;">
+<div style="border-collapse: collapse;display: table;width: 100%;background-color:#1ac86b;">
+<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#1ac86b"><![endif]-->
+<!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#1ac86b;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:35px; padding-bottom:35px;"><![endif]-->
 <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
 <div style="width:100% !important;">
 <!--[if (!mso)&(!IE)]><!-->
@@ -150,10 +150,10 @@
 </div>
 </div>
 <div style="background-color:transparent;">
-<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #464646;">
-<div style="border-collapse: collapse;display: table;width: 100%;background-color:#464646;">
-<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#464646"><![endif]-->
-<!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#464646;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:50px;"><![endif]-->
+<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #1ac86b;">
+<div style="border-collapse: collapse;display: table;width: 100%;background-color:#1ac86b;">
+<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:640px"><tr class="layout-full-width" style="background-color:#1ac86b"><![endif]-->
+<!--[if (mso)|(IE)]><td align="center" width="640" style="background-color:#1ac86b;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:50px;"><![endif]-->
 <div class="col num12" style="min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;">
 <div style="width:100% !important;">
 <!--[if (!mso)&(!IE)]><!-->
@@ -162,15 +162,10 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#ffffff;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="line-height: 1.5; font-size: 12px; color: #ffffff; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 18px;">
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">Thank You sparing your time and downloading my shitty app. Also thank you for being in my complete journey and supporting me.</p>
+<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"><strong><span style="font-size: 20px;">Congratulation, Your Account Is Verified</span></strong></p>
+<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"><strong><span style="font-size: 20px;">You Can Now Login Into The App.</span></strong></p>
 <p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"> </p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"><strong>welcome to ONBVN - Our Indian Social Network</strong></p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"> </p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">Your Account Has Been Created Successfully &amp; I Am Reviewing It.</p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">It Might Take 24 Hours To Review Your Details.</p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">I Will Send You An Email Of Confirmation When Done Reviewing.</p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">If You Don't Get An Confirmation Mail Then Their Might Be A Problem And I Delete Your Request,</p>
-<p style="text-align: center; line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">So Consider Providing Me Your Proper Details.  </p>
+<p style="text-align: center; line-height: 1.5; word-break: break-word; font-size: 12px; mso-line-height-alt: 18px; margin: 0;"><span style="font-size: 12px;"><strong>One More Thing(I don't store your provided aadhaar card images, it gets deleted as soon as i review it)</strong></span></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -226,4 +221,6 @@
 </table>
 <!--[if (IE)]></div><![endif]-->
 </body>
-</html>
+</html>`
+
+module.exports = {successTemplate}
