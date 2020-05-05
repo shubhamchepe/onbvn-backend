@@ -21,6 +21,24 @@ const GetChats = async (req,res) => {
     }
 }
 
+//Update All Chats To Viewed From Particular User
+const UpdateViewed = async (req,res) => {
+    try{
+        await jwt.verify(req.token, config.secret , (err, authData) => {
+          if(err){
+              console.log(err);
+          } else{
+            Chat.updateMany({ToUserID: authData.id,viewed:false,FromUserID:req.params.fromuserid},{
+                viewed:true
+            }).then(data => res.json(data)).catch(err => console.log('Error Occured Updating Viewed Status'))
+          }
+        });
+    } catch(error){
+         console.log(error);
+         
+    }
+}
+
 //Modify viewed status
 const ModifyViewd = async (req,res) => {
     try{
@@ -123,4 +141,4 @@ const GetChatLogs = async (req,res) => {
 
 
 
-module.exports = {GetChats,GetChatLogs,ModifyViewd,ClearChatCollection};
+module.exports = {GetChats,GetChatLogs,ModifyViewd,ClearChatCollection,UpdateViewed};

@@ -8,9 +8,7 @@ const admin = require("../utils/fbadmin");
 var bucket = admin.storage().bucket();
 const uuid = require('uuid/v4');
 const nodemailer = require('nodemailer');
-const client = require('twilio')(config.accountSID,config.authToken)
-const hbs = require('express-handlebars');
-var fs = require('fs')
+const client = require('twilio')(config.accountSID,config.authToken);
 const {emailtemplate} = require('../views/email');
 const {successTemplate} = require('../views/success');
 
