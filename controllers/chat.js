@@ -24,7 +24,7 @@ const GetChats = async (req,res) => {
 //Update All Chats To Viewed From Particular User
 const UpdateViewed = async (req,res) => {
     try{
-          Chat.updateMany({ToUserID: authData.id,viewed:false,FromUserID:req.params.fromuserid},{
+          Chat.updateMany({ToUserID: req.query.touserid,viewed:false,FromUserID:req.params.fromuserid},{
                 viewed:true
             }).then(data => res.json(data)).catch(err => console.log('Error Occured Updating Viewed Status'))
        
