@@ -173,7 +173,7 @@ app.post('/ModifyStatus/:id',ModifyViewd);
 //Clear Chat Collection
 app.get('/DelETe_Chhats',ClearChatCollection)
 //Update All Chats To Viewed From Particular User
-app.post('/UpdateViewed',UpdateViewed);
+app.post('/UpdateViewed/:touser',UpdateViewed);
 
 
 
