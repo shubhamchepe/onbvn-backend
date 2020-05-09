@@ -104,6 +104,7 @@ const getAllNotifications = (req,res) => {
 
 //Getting Notifications For Particular User
 const getUserNotifications = async (req,res) => {
+    console.log('Notf Verify',req.token)
     jwt.verify(req.token, config.secret , async (err, authData) => {
         if(err){
            res.send(err)

@@ -212,6 +212,7 @@ const getUserByUsername = (req,res) => {
 
 //Get User By Firstname
 const getUserByFirstname = (req,res) => {
+    console.log('EXPO TOKEN',req.token)
     jwt.verify(req.token, config.secret , (err, authData) => {
         if(err){
            res.send(err)
