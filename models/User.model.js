@@ -5,6 +5,9 @@ var UserSchema = new Schema({
     UserAccountStatus: {
         type: String
     },
+    ExpoToken:{
+       type: String
+    },
     firstname: {
         type: String,
         required: true

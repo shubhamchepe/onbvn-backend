@@ -262,6 +262,26 @@ const UpdateFields = (req,res) => {
  });
  };
 
+ //Update Expo Token Of User
+ const UpdateExpoToken = (req,res) => {
+    jwt.verify(req.token, config.secret , (err, authData) => {
+       if(err){
+           //res.json('Something went wrong');
+           console.log(err);
+       } else{
+           User.findByIdAndUpdate(authData.id, {
+               ExpoToken: req.params.expotoken
+           }, (err,data) => {
+               if(err){
+                   console.log(err)
+               } else{
+                   res.json(data);
+               }
+           })
+       }
+    });
+    };
+
 
 //Check If Friends
 const CheckIfFriends = async (req,res) => {
@@ -515,5 +535,6 @@ module.exports = {
     ValidatePhone,
     ValidateAadhar,
     getPendingUsers,
-    AcceptNewUser
+    AcceptNewUser,
+    UpdateExpoToken
 };

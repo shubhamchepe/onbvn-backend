@@ -28,7 +28,8 @@ const {getAllUsers,
        ValidatePhone,
        ValidateAadhar,
        getPendingUsers,
-       AcceptNewUser} = require('./controllers/user');
+       AcceptNewUser,
+       UpdateExpoToken} = require('./controllers/user');
 const {CreatePost,
        GetAllPosts,
        GetAllPostsByUsername,
@@ -140,6 +141,8 @@ app.get('/GetId', verifyToken,CheckIfFriends);
 app.get('/getPendingusers',getPendingUsers);
 //Accept New User
 app.post('/AcceptNewUser/:id', AcceptNewUser);
+//Update ExpoToken
+app.post('/UpdateExpoToken/:expotoken',verifyToken, UpdateExpoToken)
 
 
 
