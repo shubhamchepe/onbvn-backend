@@ -120,7 +120,7 @@ const GetAllPostsByUsername = async (req,res) => {
           } else{
               Username = req.params.username
               Post.find({
-                  "postAuthor.authorUsername": Username
+                  name: Username
               }).exec((err,data) => {
                   if(err){
                       console.log(err);
