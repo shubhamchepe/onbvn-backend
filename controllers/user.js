@@ -34,7 +34,8 @@ const createUser = (req,res) => {
     newUser.email =   body.email;
     newUser.password =   body.password;
     newUser.aadharUID =   body.aadharUID;
-    newUser.UserAccountStatus = 'pending'
+    newUser.UserAccountStatus = 'pending',
+    newUser.profilePicture = 'https://firebasestorage.googleapis.com/v0/b/fir-88c17.appspot.com/o/profile.png?alt=media&token=c17b5ca6-f60c-4094-823a-4659beba8f65'
   
 let transporter = nodemailer.createTransport({
     service: 'gmail',
